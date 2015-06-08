@@ -4,7 +4,11 @@ Benefits of using restructured text (Sphinx)
 It is a text-based representation
 ---------------------------------
 
-Equations are converted to nice vector graphics.
+Equations are converted to nice vector graphics:
+
+.. math ::
+
+  {\partial x \over \partial t} = 0.0
 
 Easy to get diff's for equations as they are also written in textual
 markup (latex).
@@ -43,8 +47,14 @@ restructured text.
 
 There are many useful features available:
 
-* Abbreviations like :abbr:`MSL (Modelica Standard Library)`  or |MSL|
+.. index ::
+  single: keyword; when
+  single: keyword; if
+  single: when
+
+* Abbreviations like using \:abbr\: :abbr:`MSL (Modelica Standard Library)` or as a short-hand name \|MLS\| |MLS|
 * Citations like :cite:`something` (working with bibtex) is available as plugins.
+* Easy generation of an index, like :index:`if <single: if>` and when.
 
 Generation of the text into multiple formats:
 
@@ -59,4 +69,7 @@ Benefits of using git
 Easier to propose changes, for example by writing an MCP in restructured
 text or creating a github pull request for fixing typo's.
 
-.. |MSL| replace:: :abbr:`MSL (Modelica Standard Library)`
+Possible to work on the specification during meetings even when the
+Wi-Fi is failing.
+
+.. |MLS| replace:: :abbr:`MLS (Modelica Language Specification)`
