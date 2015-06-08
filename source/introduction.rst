@@ -87,17 +87,30 @@ grammar. Non-normative text, i.e., examples and comments, are enclosed
 in [ ]; comments are set in italics. Additional terms are explained in
 the glossary in Appendix A. Some important terms are:
 
-+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| *Term*       | *Definition*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Component    | An element defined by the production component\_clause in the Modelica grammar                                                                                                                                                                                                                                                                                                                                                                                                                               |
-|              | (basically a variable or an instance of a class)                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Element      | Class definitions, extends-clauses and component-clauses declared in a class                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-|              | (basically a class reference or a component in a declaration).                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Flattening   | The translation of a model described in Modelica to the corresponding model described as a hybrid DAE, involving expansion of inherited base classes, parameterization of base classes, local classes and components, and generation of connection equations from connect-equations (basically, mapping the hierarchical structure of a model into a set of differential, algebraic and discrete equations together with the corresponding variable declarations and function definitions from the model).   |
-+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+Component
+~~~~~~~~~
+
+An element defined by the production component\_clause in the Modelica
+grammar (basically a variable or an instance of a class).
+
+Element
+~~~~~~~
+Class definitions, extends-clauses and component-clauses declared in a class
+(basically a class reference or a component in a declaration).
+
+Flattening
+~~~~~~~~~~
+The translation of a model described in Modelica to the corresponding
+model described as a hybrid DAE, involving expansion of inherited base
+classes, parameterization of base classes, local classes and components,
+and generation of connection equations from connect-equations (basically,
+mapping the hierarchical structure of a model into a set of differential,
+algebraic and discrete equations together with the corresponding variable
+declarations and function definitions from the model).
+
+.. todo ::
+
+  Reference the glossary. Create the glossary.
 
 Notation and Grammar
 --------------------
@@ -112,6 +125,6 @@ Boldface denotes keywords of the Modelica language. Keywords are
 reserved words and may not be used as identifiers, with the exception of
 initial which is a keyword in section headings, and der which is a
 keyword for declaration functions, but it is also possible to call the
-functions initial()and der(…).
+functions initial() and der(...).
 
 See Appendix B for a full lexical specification and grammar.

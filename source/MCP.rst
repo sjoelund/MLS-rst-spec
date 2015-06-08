@@ -1,0 +1,74 @@
+Changing Modelica language specification documentation format
+=============================================================
+
+Summary
+-------
+
+Revisions
+~~~~~~~~~
+
+
+======= ========== ===============
+Version Date       Comments
+======= ========== ===============
+v1      2015-06-08 Initial version
+======= ========== ===============
+
+Copyright License
+~~~~~~~~~~~~~~~~~
+
+This document is placed in public domain.
+
+Motivation
+----------
+
+.. include :: README.rst
+
+.. _impact :
+
+Impact
+~~~~~~
+
+We get a version of the specification that:
+
+* Can be easily modified.
+* Supports collaboration.
+* Can be converted to different formats easily.
+
+Use Cases
+~~~~~~~~~
+
+See :ref:`impact`.
+
+Proposed Changes in Specification
+---------------------------------
+
+The specification will need to be updated. The initial conversion
+can be done by pandoc with manual changes of the specification to
+make sure all formatting has been preserved, indexes updated, source
+code using source code blocks, etc.
+
+Required changes in List of Keywords
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Conversion to restructured text.
+
+Required changes in Grammar
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Conversion to restructured text.
+
+Required changes in Specification Text
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Conversion to restructured text.
+
+Backwards Compatibility
+-----------------------
+
+No actual changes will be made.
+
+Implementation Effort
+---------------------
+
+No changes will be made that directly affect Modelica tools.

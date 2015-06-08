@@ -41,33 +41,29 @@ C++*\ ]. The following comment variants are available:
 Modelica comments do not nest, i.e., /\* \*/ cannot be embedded within
 /\* \*/. The following is *invalid*:
 
-/\* Commented out - erroneous comment, invalid nesting of comments!
+.. code-block :: modelica
 
-/\* This is a interesting model \*/
+  /* Commented out - erroneous comment, invalid nesting of comments!
+  /* This is an interesting model */
 
-**model** interesting
+  model interesting
+   // ...
+  end interesting;
+  */
 
-...
-
-**end** interesting;
-
-\*/
-
-There is also a kind of “documentation comment,” really a *documentation
+There is also a kind of "documentation comment," really a *documentation
 string* that is part of the Modelica language and therefore not ignored
-by the Modelica translator. Such “comments” may occur at the ends of
+by the Modelica translator. Such "comments" may occur at the ends of
 declarations, equations, or statements or at the beginning of class
 definitions. For example:
 
-**model** TempResistor "Temperature dependent resistor"
+.. code-block :: modelica
 
-...
-
-**parameter** Real R "Resistance for reference temp.";
-
-...
-
-**end** TempResistor;
+  model TempResistor "Temperature dependent resistor"
+    // ...
+    parameter Real R "Resistance for reference temp.";
+    // ...
+  end TempResistor;
 
 Identifiers, Names, and Keywords
 --------------------------------
@@ -96,27 +92,22 @@ indicate repetition zero or more times, and vertical bar \| indicates
 alternatives. A full BNF definition of the Modelica syntax and lexical
 units is available in Appendix B.
 
-IDENT = NONDIGIT { DIGIT \| NONDIGIT } \| Q-IDENT
+.. code-block :: antlr
 
-Q-IDENT = "**’**\ " { Q-CHAR \| S-ESCAPE } "**’**\ "
+  IDENT = NONDIGIT { DIGIT | NONDIGIT } | Q-IDENT
 
-NONDIGIT = "**\_**\ " \| letters "**a**\ " to "**z**\ " \| letters
-"**A**\ " to "**Z**\ "
+  Q-IDENT = "'" { Q-CHAR \| S-ESCAPE } "'"
 
-DIGIT = 0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 9
+  NONDIGIT = "_" | letters "a" to "z" | letters "A" to "Z"
 
-Q-CHAR = NONDIGIT \| DIGIT \| "!" \| "#" \| "$" \| "%" \| "&" \| "(" \|
-")" \| "\*" \| "+" \| "," \|
+  DIGIT = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
-"-" \| "." \| "/" \| ":" \| ";" \| "<" \| ">" \| "=" \| "?" \| "@" \|
-"[" \| "]" \| "^" \|
+  Q-CHAR = NONDIGIT | DIGIT | "!" | "#" | "$" | "%" | "&" | "(" | ")" | "\*" | "+" | "," | "-" | "." | "/" | ":" | ";" | "<" | ">" | "=" | "?" | "@" | "[" | "]" | "^" | "{" | "}" | "|" | "~" | " " | "_"
 
-"{" \| "}" \| "\|" \| "~" \| " "\_
+  S-ESCAPE = "**\\’**\ " | "**\\"**\ " | "**\\?**\ " | "**\\\\**\ " |
 
-S-ESCAPE = "**\\’**\ " \| "**\\"**\ " \| "**\\?**\ " \| "**\\\\**\ " \|
-
-"**\\a**\ " \| "**\\b**\ " \| "**\\f**\ " \| "**\\n**\ " \| "**\\r**\ "
-\| "**\\t**\ " \| "**\\v**\ "
+  "**\\a**\ " | "**\\b**\ " | "**\\f**\ " | "**\\n**\ " | "**\\r**\ "
+  | "**\\t**\ " | "**\\v**\ "
 
 Names
 ~~~~~
@@ -176,10 +167,10 @@ A floating point number is expressed as a decimal number in the form of
 a sequence of decimal digits optionally followed by a decimal point,
 optionally followed by an exponent. At least one digit must be present.
 The exponent is indicated by an E or e, followed by an optional sign (+
-or −) and one or more decimal digits. The minimal recommended range is
+or -) and one or more decimal digits. The minimal recommended range is
 that of IEEE double precision floating point numbers, for which the
 largest representable positive number is 1.7976931348623157E+308 and the
-smallest positive number is 2.2250738585072014E−308. For example, the
+smallest positive number is 2.2250738585072014E-308. For example, the
 following are floating point number literal constants:
 
 22.5, 3.141592653589793, 1.2E-35
@@ -195,7 +186,7 @@ Integer Literals
 Literals of type Integer are sequences of decimal digits, e.g. as in the
 integer numbers 33, 0, 100, 30030044. [*Negative numbers are formed by
 unary minus followed by an integer literal*\ ]. The minimal recommended
-number range is from −2147483648 to +2147483647 for a two’s-complement
+number range is from -2147483648 to +2147483647 for a two’s-complement
 32-bit integer implementation.
 
 Boolean Literals
@@ -215,11 +206,11 @@ using escape codes, i.e., the character is preceded by a backslash (\\)
 within the string. Those characters are:
 
 +--------+------------------------------------------------------------------------+
-| \\'    | single quotemay also appear without backslash in string constants.    |
+| \\'    | single quote may also appear without backslash in string constants.    |
 +--------+------------------------------------------------------------------------+
 | \\"    | double quote                                                           |
 +--------+------------------------------------------------------------------------+
-| \\?    | question-markmay also appear without backslash in string constants.   |
+| \\?    | question-mark may also appear without backslash in string constants.   |
 +--------+------------------------------------------------------------------------+
 | \\\\   | backslash itself                                                       |
 +--------+------------------------------------------------------------------------+

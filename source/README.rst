@@ -1,8 +1,8 @@
 Benefits of using restructured text (Sphinx)
-============================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 It is a text-based representation
----------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Equations are converted to nice vector graphics:
 
@@ -24,7 +24,7 @@ We could work on the specification directly during the design or web
 meetings.
 
 Restructured text specifics
----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Easier to reference particular subsections or items (a static, named,
 link instead of an ever-changing section number).
@@ -32,7 +32,32 @@ That is, how to reference the specification from for example an e-mail
 or forum discussion.
 
 Automatic syntax highlighting for Modelica code snippets (no more
-trying to remember which words to boldface).
+trying to remember which words to boldface):
+
+.. code-block :: modelica
+  :emphasize-lines: 4,14
+
+  model BouncingBall
+    parameter Real e=0.7 "coefficient of restitution";
+    parameter Real g=9.81 "gravity acceleration";
+    Real h(start=1) "height of ball";
+    Real v "velocity of ball";
+    Boolean flying(start=true) "true, if ball is flying";
+    Boolean impact;
+    Real v_new;
+    Integer foo;
+  equation
+    impact = h <= 0.0;
+    foo = if impact then 1 else 2;
+    der(v) = if flying then -g else 0;
+    der(h) = v;
+
+    when {h <= 0.0 and v <= 0.0,impact} then
+      v_new = if edge(impact) then -e*pre(v) else 0;
+      flying = v_new > 0;
+      reinit(v, v_new);
+    end when;
+  end BouncingBall;
 
 Good search functionality (the JavaScript is able to search the html
 even when the HTML is generated locally - no server required).
@@ -64,7 +89,7 @@ Generation of the text into multiple formats:
 * qthelp (minor benefit; tools can use the built-in help and load the spec in it)
 
 Benefits of using git
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 Easier to propose changes, for example by writing an MCP in restructured
 text or creating a github pull request for fixing typo's.
