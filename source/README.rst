@@ -80,6 +80,7 @@ There are many useful features available:
 * Abbreviations like using \:abbr\: :abbr:`MSL (Modelica Standard Library)` or as a short-hand name \|MLS\| |MLS|
 * Citations like :cite:`something` (working with bibtex) is available as plugins.
 * Easy generation of an index, like :index:`if <single: if>` and when.
+* Easy to theme the generated HTML.
 
 Generation of the text into multiple formats:
 

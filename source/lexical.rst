@@ -1,6 +1,9 @@
 Lexical Structure
 =================
 
+.. role:: modelica(code)
+   :language: modelica
+
 This chapter describes several of the basic building blocks of Modelica
 such as characters and lexical units including identifiers and literals.
 Without question, the smallest building blocks in Modelica are single
@@ -32,13 +35,13 @@ inside tokens, e.g., <= must be written as two characters without space
 or comments between them. [*The comment syntax is identical to that of
 C++*\ ]. The following comment variants are available:
 
-===================== =======================================================================
-:code:`// comment`    Characters from // to the end of the line are ignored.
-:code:`/* comment */` Characters between /\* and \*/ are ignored, including line terminators.
-===================== =======================================================================
+==================  =======================================================================
+``// comment``      Characters from // to the end of the line are ignored.
+``/* comment */``   Characters between /\* and \*/ are ignored, including line terminators.
+==================  =======================================================================
 
-Modelica comments do not nest, i.e., :code:`/* */` cannot be embedded within
-:code:`/* */`. The following is *invalid*:
+Modelica comments do not nest, i.e., ``/* */`` cannot be embedded within
+``/* */``. The following is *invalid*:
 
 .. code-block :: modelica
 
@@ -97,7 +100,9 @@ units is available in :ref:`old Appendix B`.
   Q-IDENT = "'" { Q-CHAR | S-ESCAPE } "'" ;
   NONDIGIT = "_" | letters "a" to "z" | letters "A" to "Z" ;
   DIGIT = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
-  Q-CHAR = NONDIGIT | DIGIT | "!" | "#" | "$" | "%" | "&" | "(" | ")" | "\*" | "+" | "," | "-" | "." | "/" | ":" | ";" | "<" | ">" | "=" | "?" | "@" | "[" | "]" | "^" | "{" | "}" | "|" | "~" | " " | "_" ;
+  Q-CHAR = NONDIGIT | DIGIT | "!" | "#" | "$" | "%" | "&" | "(" | ")" | "\*" | "+" |
+    "," | "-" | "." | "/" | ":" | ";" | "<" | ">" | "=" | "?" | "@" | "[" | "]" |
+    "^" | "{" | "}" | "|" | "~" | " " | "_" ;
   S-ESCAPE = "\" ( "'" """" "?" "\" "a" "b" "f" "n" "r" "t" "v" ) ;
 
 Names
@@ -160,8 +165,8 @@ optionally followed by an exponent. At least one digit must be present.
 The exponent is indicated by an E or e, followed by an optional sign (+
 or -) and one or more decimal digits. The minimal recommended range is
 that of IEEE double precision floating point numbers, for which the
-largest representable positive number is :code:`1.7976931348623157E+308` and the
-smallest positive number is :code:`2.2250738585072014E-308`. For example, the
+largest representable positive number is ``1.7976931348623157E+308`` and the
+smallest positive number is ``2.2250738585072014E-308``. For example, the
 following are floating point number literal constants:
 
 .. code-block :: modelica
@@ -179,15 +184,15 @@ Integer Literals
 ~~~~~~~~~~~~~~~~
 
 Literals of type Integer are sequences of decimal digits, e.g. as in the
-integer numbers :code:`33, 0, 100, 30030044`. [*Negative numbers are formed by
+integer numbers ``33, 0, 100, 30030044``. [*Negative numbers are formed by
 unary minus followed by an integer literal*\ ]. The minimal recommended
-number range is from :code:`-2147483648` to :code:`+2147483647` for a two’s-complement
+number range is from ``-2147483648`` to ``+2147483647`` for a two’s-complement
 32-bit integer implementation.
 
 Boolean Literals
 ~~~~~~~~~~~~~~~~
 
-The two Boolean literal values are :code:`true` and :code:`false`.
+The two Boolean literal values are :modelica:`true` and :modelica:`false`.
 
 Strings
 ~~~~~~~
@@ -200,19 +205,19 @@ an escape code. Certain characters in string literals can be represented
 using escape codes, i.e., the character is preceded by a backslash (\\)
 within the string. Those characters are:
 
-============ ===================================================================
-:code:`"\'"` single quote may also appear without backslash in string constants.
-:code:`"\""` double quote
-:code:`"\?"` question-mark may also appear without backslash in string constants.
-:code:`"\\"` backslash itself
-:code:`"\a"` alert (bell, code 7, ctrl-G)
-:code:`"\b"` backspace (code 8, ctrl-H)
-:code:`"\f"` form feed (code 12, ctrl-L)
-:code:`"\n"` new-line (code 10, ctrl-J)
-:code:`"\r"` return (code 13, ctrl-M)
-:code:`"\t"` horizontal tab (code 9, ctrl-I)
-:code:`"\v"` vertical tab (code 11, ctrl-K)
-============ ===================================================================
+======== ===================================================================
+``"\'"`` single quote may also appear without backslash in string constants.
+``"\""`` double quote
+``"\?"`` question-mark may also appear without backslash in string constants.
+``"\\"`` backslash itself
+``"\a"`` alert (bell, code 7, ctrl-G)
+``"\b"`` backspace (code 8, ctrl-H)
+``"\f"`` form feed (code 12, ctrl-L)
+``"\n"`` new-line (code 10, ctrl-J)
+``"\r"`` return (code 13, ctrl-M)
+``"\t"`` horizontal tab (code 9, ctrl-I)
+``"\v"`` vertical tab (code 11, ctrl-K)
+======== ===================================================================
 
 For example, a string literal containing a tab, the words: This is,
 double quote, space, the word: between, double quote, space, the word:
@@ -223,8 +228,8 @@ us, and new-line, would appear as follows:
   "\tThis is\" between\" us\n"
 
 Concatenation of string literals in certain situations (see the Modelica
-grammar) is denoted by the + operator in Modelica, e.g. :code:`"a" + "b"`
-becomes :code:`"ab"`. This is useful for expressing long string literals that
+grammar) is denoted by the + operator in Modelica, e.g. :modelica:`"a" + "b"`
+becomes :modelica:`"ab"`. This is useful for expressing long string literals that
 need to be written on several lines.
 
 [*Note, if the contents of a file is read into a Modelica string, it is
@@ -233,7 +238,7 @@ line ending symbols on file (e.g. on Linux systems to have a “newline”
 character at the end of a line and on Windows systems to have a
 “newline” and a “carriage return” character. As usual in programming
 languages, the content of a file in a Modelica string only contains the
-“newline” character. *
+“newline” character.*
 
 *For long string comments, e.g., the “info” annotation to store the
 documentation of a model, it would be very inconvenient, if the string
@@ -246,7 +251,8 @@ contains (non-printable) newline characters:*
 .. code-block :: modelica
 
   assert(noEvent(length > s_small), "
-      The distance between the origin of frame_a and the origin of frame_b of a LineForceWithMass component became smaller as parameter s_small
+      The distance between the origin of frame_a and the origin of frame_b of a
+      LineForceWithMass component became smaller as parameter s_small
       (= a small number, defined in the \"Advanced\" menu). The distance is
       set to s_small, although it is smaller, to avoid a division by zero
       when computing the direction of the line force.",
