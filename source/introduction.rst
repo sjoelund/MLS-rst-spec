@@ -49,7 +49,7 @@ The key issues of the translation (or flattening) are:
 The flat hybrid DAE form consists of:
 
 -  Declarations of variables with the appropriate basic types, prefixes
-   and attributes, such as "parameter Real v=5".
+   and attributes, such as ``parameter Real v=5``.
 
 -  Equations from equation sections.
 
@@ -84,8 +84,8 @@ Some Definitions
 
 The semantic specification should be read together with the Modelica
 grammar. Non-normative text, i.e., examples and comments, are enclosed
-in [ ]; comments are set in italics. Additional terms are explained in
-the glossary in Appendix A. Some important terms are:
+in [ ]; comments are set *in italics*. Additional terms are explained in
+the glossary in :ref:`TODO: Appendix A`. Some important terms are:
 
 Component
 ~~~~~~~~~
@@ -115,16 +115,19 @@ declarations and function definitions from the model).
 Notation and Grammar
 --------------------
 
-The following syntactic meta symbols are used (extended BNF):
+The following syntactic meta symbols are used (extended BNF [#ebnf]_):
 
-[ ] optional
+``[ ]`` optional
 
-{ } repeat zero or more times
+``{ }`` repeat zero or more times
 
 Boldface denotes keywords of the Modelica language. Keywords are
 reserved words and may not be used as identifiers, with the exception of
 initial which is a keyword in section headings, and der which is a
 keyword for declaration functions, but it is also possible to call the
-functions initial() and der(...).
+functions ``initial()`` and ``der(...)``.
 
-See Appendix B for a full lexical specification and grammar.
+See :ref:`TODO: Appendix B` for a full lexical specification and grammar.
+
+.. [#ebnf]
+  `ISO/IEC 14977 EBNF grammar <http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form>`_.

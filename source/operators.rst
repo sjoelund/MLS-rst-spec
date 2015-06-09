@@ -181,7 +181,7 @@ numerical type:
 +-------+------------------+
 
 Some of these operators can also be applied to a combination of a scalar
-type and an array type, see Section 10.6.
+type and an array type, see Section :ref:`TODO: 10.6`.
 
 The syntax of these operators is defined by the following rules from the
 Modelica grammar:
@@ -1185,9 +1185,9 @@ vectorizable according to Section 12.4.6
   The pre() operator can be applied if the following three conditions
   are fulfilled simultaneously:
 
-  #. variable y is either a subtype of a simple type or is a record component
-  #. y is a discrete-time expression
-  #. the operator is *not* applied in a function class.
+  a. variable y is either a subtype of a simple type or is a record component
+  b. y is a discrete-time expression
+  c. the operator is *not* applied in a function class.
 
   [*Note: This can be applied to continuous-time variables in when-clauses,
   see Section :ref:`discrete-time-expressions` for the definition of discrete-time expression.*]
@@ -1216,11 +1216,11 @@ A few of these operators are described in more detail in the following.
 pre
 ^^^
 
-A new event is triggered if at least for one variable v “pre(v) <> v”
+A new event is triggered if at least for one variable ``v`` ``pre(v) <> v``
 after the active model equations are evaluated at an event instant. In
 this case the model is at once reevaluated. This evaluation sequence is
 called “\ *event iteration*\ ”. The integration is restarted, if for all
-v used in pre-operators the following condition holds: “pre(v) == v”.
+v used in pre-operators the following condition holds: ``pre(v) == v``.
 
 [*If* ``v`` *and* ``pre(v)`` *are only used in when-clauses, the translator
 might mask event iteration for variable v since v cannot change during
