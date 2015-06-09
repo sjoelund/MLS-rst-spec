@@ -53,7 +53,7 @@ clean:
 
 html:
 	$(SPHINXBUILD) -D pngmath_dvipng="`pwd`"/dvisvgm.sh -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
-	sed -i 's,\(_images/math/.*[.]\)png,\1svg,' build/html/*.html
+	sed -i= 's,\(_images/math/.*[.]\)png,\1svg,' build/html/*.html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
@@ -64,7 +64,7 @@ dirhtml:
 
 singlehtml:
 	$(SPHINXBUILD) -D pngmath_dvipng="`pwd`"/dvisvgm.sh  -b singlehtml $(ALLSPHINXOPTS) $(BUILDDIR)/singlehtml
-	sed -i 's,\(_images/math/.*[.]\)png,\1svg,' build/singlehtml/*.html
+	sed -i= 's,\(_images/math/.*[.]\)png,\1svg,' build/singlehtml/*.html
 	@echo
 	@echo "Build finished. The HTML page is in $(BUILDDIR)/singlehtml."
 
@@ -124,8 +124,8 @@ latex:
 
 latexpdf: latex
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
-	sed -i "s/usepackage.utf8..inputenc./usepackage[utf8x]{inputenc}/" build/latex/ModelicaLanguageSpecification.tex
-	sed -i "/DeclareUnicodeCharacter/d" build/latex/ModelicaLanguageSpecification.tex
+	sed -i= "s/usepackage.utf8..inputenc./usepackage[utf8x]{inputenc}/" build/latex/ModelicaLanguageSpecification.tex
+	sed -i= "/DeclareUnicodeCharacter/d" build/latex/ModelicaLanguageSpecification.tex
 	@echo "Running LaTeX files through pdflatex..."
 	$(MAKE) -C $(BUILDDIR)/latex all-pdf
 	@echo "pdflatex finished; the PDF files are in $(BUILDDIR)/latex."
