@@ -121,17 +121,13 @@ Modelica Keywords
 The following Modelica *keywords* are reserved words and may not be used
 as identifiers, except as listed in :ref:`TODO: Appendix B.1`:
 
-``algorithm``, ``and``, ``annotation``, ``block``, ``break``,
-``class``, ``connect``, ``connector``, ``constant``, ``constrainedby``,
-``der``, ``discrete``, ``each``, ``else``, ``elseif``, ``elsewhen``,
-``encapsulated``, ``end``, ``enumeration``, ``equation``, ``expandable``,
-``extends``, ``external``, ``false``, ``final``, ``flow``, ``for``,
-``function``, ``if``, ``import``, ``impure``, ``in``, ``initial``,
-``inner``, ``input``, ``loop``, ``model``, ``not``, ``operator``,
-``or``, ``outer``, ``output``, ``package``, ``parameter``, ``partial``,
-``protected``, ``public``, ``pure``, ``record``, ``redeclare``,
-``replaceable``, ``return``, ``stream``, ``then``, ``true``, ``type``,
-``when``, ``while``, ``within``
+``algorithm, and, annotation, block, break, class, connect, connector,
+constant, constrainedby, der, discrete, each, else, elseif, elsewhen,
+encapsulated, end, enumeration, equation, expandable, extends, external,
+false, final, flow, for, function, if, import, impure, in, initial,
+inner, input, loop, model, not, operator, or, outer, output, package,
+parameter, partial, protected, public, pure, record, redeclare,
+replaceable, return, stream, then, true, type, when, while, within``
 
 Literal Constants
 -----------------
