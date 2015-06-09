@@ -4,24 +4,24 @@ Benefits of using restructured text (Sphinx)
 It is a text-based representation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Equations are converted to nice vector graphics:
+* Equations are converted to nice vector graphics:
 
 .. math ::
 
   {\partial x \over \partial t} = 0.0
 
-Easy to get diff's for equations as they are also written in textual
-markup (latex).
+* Easy to get diff's for equations as they are also written in textual
+  markup (latex).
 
-Easier to merge changes using a textual format than a binary one.
-This makes collaboration much simpler, in particular when working
-on making sure MCP's are up-to-date.
+* Easier to merge changes using a textual format than a binary one.
+  This makes collaboration much simpler, in particular when working
+  on making sure MCP's are up-to-date.
 
-Easy to track individual changes (each commit is textual and easy to
-see).
+* Easy to track individual changes (each commit is textual and easy to
+  see).
 
-We could work on the specification directly during the design or web
-meetings.
+* We could work on the specification directly during the design or web
+  meetings.
 
 Restructured text specifics
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -35,6 +35,7 @@ Automatic syntax highlighting for Modelica code snippets (no more
 trying to remember which words to boldface):
 
 .. code-block :: modelica
+  :caption: Bouncing ball example with emphasis on lines 4 and 14
   :emphasize-lines: 4,14
 
   model BouncingBall

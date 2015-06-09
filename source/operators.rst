@@ -594,6 +594,10 @@ function syntax are predefined:
   Definition lists can be referred to using links, like :ref:`der(expr) <operator-der>`, but the link will
   not be visible in the HTML. Could possibly be themed into the HTML in some way.
 
+.. index ::
+  single: keyword; der
+  single: der
+
 .. _operator-der :
 
 ``der(expr)``
@@ -798,7 +802,7 @@ pseudo-code given as a block:
 [*The infinite-dimensional problem stated above can then be formulated
 in the following way:*
 
-.. code-block ::
+.. code-block :: modelica
 
   der(x) = v;
   (out0, out1) = **spatialDistribution**\ (in0, in1, x, v>=0, initialPoints, initialValues);
@@ -810,7 +814,7 @@ event generation.*
 *If the velocity is known to be always positive, then out0 can be
 omitted, e.g.:*
 
-.. code-block ::
+.. code-block :: modelica
 
   der(x) = v;
   (,out1) = spatialDistribution(in0, 0, x, true, initialPoints, initialValues);
@@ -1178,6 +1182,7 @@ vectorizable according to Section 12.4.6
   During continuous integration the operator returns always false.
   The starting time start and the sample interval interval need to be
   parameter expressions and need to be a subtype of Real or Integer.                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+
 ``pre(y)``
   Returns the "left limit" y(t\ :sup:`pre`) of variable y(t) at a time
   instant t. At an event instant, y(t\ :sup:`pre`) is the value of y
@@ -1190,7 +1195,7 @@ vectorizable according to Section 12.4.6
   c. the operator is *not* applied in a function class.
 
   [*Note: This can be applied to continuous-time variables in when-clauses,
-  see Section :ref:`discrete-time-expressions` for the definition of discrete-time expression.*]
+  see Section* :ref:`discrete-time-expressions` *for the definition of discrete-time expression.*]
   The first value of pre(y) is determined in the initialization phase. See also Section :ref:`operator-pre`.
 
 ``edge(b)``
@@ -1212,6 +1217,8 @@ vectorizable according to Section 12.4.6
   See also Section :ref:`TODO: 8.3.6`.
 
 A few of these operators are described in more detail in the following.
+
+.. _operator-pre :
 
 pre
 ^^^
