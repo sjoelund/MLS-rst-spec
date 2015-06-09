@@ -24,16 +24,16 @@ Expressions
 Modelica equations, assignments and declaration equations contain
 expressions.
 
-Expressions can contain basic operations, +, -, \*, /, ^, etc. with
+Expressions can contain basic operations, :code:`+, -, *, /, ^`, etc. with
 normal precedence as defined in :numref:`table-operators` and the grammar
 in Section :ref:`modelica-concrete-syntax`. The semantics of the operations is defined for both
-scalar and array arguments in Section 10.6.
+scalar and array arguments in :ref:`TODO: Section 10.6`.
 
 It is also possible to define functions and call them in a normal
 fashion. The function call syntax for both positional and named
-arguments is described in Section 12.4.1 and for vectorized calls in
-Section 12.4.4. The built-in array functions are given in Section 10.1.1
-and other built-in operators in Section 3.7.
+arguments is described in :ref:`TODO: Section 12.4.1` and for vectorized calls in
+:ref:`TODO: Section 12.4.4`. The built-in array functions are given in :ref:`TODO: Section 10.1.1`
+and other built-in operators in :ref:`TODO: Section 3.7`.
 
 Operator Precedence and Associativity
 -------------------------------------
@@ -44,7 +44,7 @@ operator with lower precedence in the same expression.
 
 The following table presents all the expression operators in order of
 precedence from highest to lowest, as derived from the Modelica grammar
-in Appendix B. All operators are binary except the postfix operators and
+in :ref:`TODO: Appendix B`. All operators are binary except the postfix operators and
 those shown as unary together with *expr*, the conditional operator, the
 array construction operator {} and concatenation operator [ ], and the
 array range constructor which is either binary or ternary. Operators
@@ -115,8 +115,7 @@ valid expressions):*
 
 x^y^z // Not legal, use parenthesis to make it clear
 
-a:b:c:d:e:f:g // Not legal, and scalar arguments gives no legal
-interpretation.
+a:b:c:d:e:f:g // Not legal, and scalar arguments gives no legal interpretation.
 
 ]
 
@@ -184,25 +183,22 @@ type and an array type, see Section 10.6.
 The syntax of these operators is defined by the following rules from the
 Modelica grammar:
 
-arithmetic\_expression :
+.. code-block :: antlr
 
-[ add\_op ] term { add\_op term }
+  arithmetic_expression :
+    [ add_op ] term { add_op term }
 
-add\_op :
+  add_op :
+    "+" | "-"
 
-"+" \| "-"
+  term :
+    factor { mul_op factor }
 
-term :
+  mul_op :
+    "*" | "/"
 
-factor { mul\_op factor }
-
-mul\_op :
-
-"\*" \| "/"
-
-factor :
-
-primary [ "^" primary ]
+  factor :
+    primary [ "^" primary ]
 
 Equality, Relational, and Logical Operators
 -------------------------------------------

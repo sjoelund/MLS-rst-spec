@@ -32,14 +32,13 @@ inside tokens, e.g., <= must be written as two characters without space
 or comments between them. [*The comment syntax is identical to that of
 C++*\ ]. The following comment variants are available:
 
-+-------------------+---------------------------------------------------------------------------+
-| // comment        | Characters from // to the end of the line are ignored.                    |
-+-------------------+---------------------------------------------------------------------------+
-| /\* comment \*/   | Characters between /\* and \*/ are ignored, including line terminators.   |
-+-------------------+---------------------------------------------------------------------------+
+===================== =======================================================================
+:code:`// comment`    Characters from // to the end of the line are ignored.
+:code:`/* comment */` Characters between /\* and \*/ are ignored, including line terminators.
+===================== =======================================================================
 
-Modelica comments do not nest, i.e., /\* \*/ cannot be embedded within
-/\* \*/. The following is *invalid*:
+Modelica comments do not nest, i.e., :code:`/* */` cannot be embedded within
+:code:`/* */`. The following is *invalid*:
 
 .. code-block :: modelica
 
@@ -90,24 +89,16 @@ the identifier, i.e., 'x' and x are distinct identifiers. The following
 BNF-like rules define Modelica identifiers, where curly brackets {}
 indicate repetition zero or more times, and vertical bar \| indicates
 alternatives. A full BNF definition of the Modelica syntax and lexical
-units is available in Appendix B.
+units is available in :ref:`old Appendix B`.
 
-.. code-block :: antlr
+.. code-block :: ebnf
 
-  IDENT = NONDIGIT { DIGIT | NONDIGIT } | Q-IDENT
-
-  Q-IDENT = "'" { Q-CHAR \| S-ESCAPE } "'"
-
-  NONDIGIT = "_" | letters "a" to "z" | letters "A" to "Z"
-
-  DIGIT = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-
-  Q-CHAR = NONDIGIT | DIGIT | "!" | "#" | "$" | "%" | "&" | "(" | ")" | "\*" | "+" | "," | "-" | "." | "/" | ":" | ";" | "<" | ">" | "=" | "?" | "@" | "[" | "]" | "^" | "{" | "}" | "|" | "~" | " " | "_"
-
-  S-ESCAPE = "**\\’**\ " | "**\\"**\ " | "**\\?**\ " | "**\\\\**\ " |
-
-  "**\\a**\ " | "**\\b**\ " | "**\\f**\ " | "**\\n**\ " | "**\\r**\ "
-  | "**\\t**\ " | "**\\v**\ "
+  IDENT = NONDIGIT { DIGIT | NONDIGIT } | Q-IDENT ;
+  Q-IDENT = "'" { Q-CHAR | S-ESCAPE } "'" ;
+  NONDIGIT = "_" | letters "a" to "z" | letters "A" to "Z" ;
+  DIGIT = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+  Q-CHAR = NONDIGIT | DIGIT | "!" | "#" | "$" | "%" | "&" | "(" | ")" | "\*" | "+" | "," | "-" | "." | "/" | ":" | ";" | "<" | ">" | "=" | "?" | "@" | "[" | "]" | "^" | "{" | "}" | "|" | "~" | " " | "_" ;
+  S-ESCAPE = "\" ( "'" """" "?" "\" "a" "b" "f" "n" "r" "t" "v" ) ;
 
 Names
 ~~~~~
@@ -116,14 +107,14 @@ A *name* is an identifier with a certain interpretation or meaning. For
 example, a name may denote an Integer variable, a Real variable, a
 function, a type, etc. A name may have different meanings in different
 parts of the code, i.e., different scopes. The interpretation of
-identifiers as names is described in more detail in Chapter 5. The
-meaning of package names is described in more detail in Chapter 13.
+identifiers as names is described in more detail in :ref:`todo: Chapter 5`. The
+meaning of package names is described in more detail in :ref:`todo: Chapter 13`.
 
 Modelica Keywords
 ~~~~~~~~~~~~~~~~~
 
 The following Modelica *keywords* are reserved words and may not be used
-as identifiers, except as listed in Appendix B.1:
+as identifiers, except as listed in :ref:`old Appendix B.1`:
 
 +-----------------+----------------+------------+-------------+---------------+
 | algorithm       | discrete       | false      | loop        | pure          |
@@ -169,30 +160,34 @@ optionally followed by an exponent. At least one digit must be present.
 The exponent is indicated by an E or e, followed by an optional sign (+
 or -) and one or more decimal digits. The minimal recommended range is
 that of IEEE double precision floating point numbers, for which the
-largest representable positive number is 1.7976931348623157E+308 and the
-smallest positive number is 2.2250738585072014E-308. For example, the
+largest representable positive number is :code:`1.7976931348623157E+308` and the
+smallest positive number is :code:`2.2250738585072014E-308`. For example, the
 following are floating point number literal constants:
 
-22.5, 3.141592653589793, 1.2E-35
+.. code-block :: modelica
+
+  22.5, 3.141592653589793, 1.2E-35
 
 The same floating point number can be represented by different literals.
 For example, all of the following literals denote the same number:
 
-13., 13E0, 1.3e1, 0.13E2
+.. code-block :: modelica
+
+  13., 13E0, 1.3e1, 0.13E2
 
 Integer Literals
 ~~~~~~~~~~~~~~~~
 
 Literals of type Integer are sequences of decimal digits, e.g. as in the
-integer numbers 33, 0, 100, 30030044. [*Negative numbers are formed by
+integer numbers :code:`33, 0, 100, 30030044`. [*Negative numbers are formed by
 unary minus followed by an integer literal*\ ]. The minimal recommended
-number range is from -2147483648 to +2147483647 for a two’s-complement
+number range is from :code:`-2147483648` to :code:`+2147483647` for a two’s-complement
 32-bit integer implementation.
 
 Boolean Literals
 ~~~~~~~~~~~~~~~~
 
-The two Boolean literal values are true and false.
+The two Boolean literal values are :code:`true` and :code:`false`.
 
 Strings
 ~~~~~~~
@@ -205,39 +200,31 @@ an escape code. Certain characters in string literals can be represented
 using escape codes, i.e., the character is preceded by a backslash (\\)
 within the string. Those characters are:
 
-+--------+------------------------------------------------------------------------+
-| \\'    | single quote may also appear without backslash in string constants.    |
-+--------+------------------------------------------------------------------------+
-| \\"    | double quote                                                           |
-+--------+------------------------------------------------------------------------+
-| \\?    | question-mark may also appear without backslash in string constants.   |
-+--------+------------------------------------------------------------------------+
-| \\\\   | backslash itself                                                       |
-+--------+------------------------------------------------------------------------+
-| \\a    | alert (bell, code 7, ctrl-G)                                           |
-+--------+------------------------------------------------------------------------+
-| \\b    | backspace (code 8, ctrl-H)                                             |
-+--------+------------------------------------------------------------------------+
-| \\f    | form feed (code 12, ctrl-L)                                            |
-+--------+------------------------------------------------------------------------+
-| \\n    | new-line (code 10, ctrl-J)                                             |
-+--------+------------------------------------------------------------------------+
-| \\r    | return (code 13, ctrl-M)                                               |
-+--------+------------------------------------------------------------------------+
-| \\t    | horizontal tab (code 9, ctrl-I)                                        |
-+--------+------------------------------------------------------------------------+
-| \\v    | vertical tab (code 11, ctrl-K)                                         |
-+--------+------------------------------------------------------------------------+
+============ ===================================================================
+:code:`"\'"` single quote may also appear without backslash in string constants.
+:code:`"\""` double quote
+:code:`"\?"` question-mark may also appear without backslash in string constants.
+:code:`"\\"` backslash itself
+:code:`"\a"` alert (bell, code 7, ctrl-G)
+:code:`"\b"` backspace (code 8, ctrl-H)
+:code:`"\f"` form feed (code 12, ctrl-L)
+:code:`"\n"` new-line (code 10, ctrl-J)
+:code:`"\r"` return (code 13, ctrl-M)
+:code:`"\t"` horizontal tab (code 9, ctrl-I)
+:code:`"\v"` vertical tab (code 11, ctrl-K)
+============ ===================================================================
 
 For example, a string literal containing a tab, the words: This is,
 double quote, space, the word: between, double quote, space, the word:
 us, and new-line, would appear as follows:
 
-"\\tThis is\\" between\\" us\\n"
+.. code-block :: modelica
+
+  "\tThis is\" between\" us\n"
 
 Concatenation of string literals in certain situations (see the Modelica
-grammar) is denoted by the + operator in Modelica, e.g. "a" + "b"
-becomes "ab". This is useful for expressing long string literals that
+grammar) is denoted by the + operator in Modelica, e.g. :code:`"a" + "b"`
+becomes :code:`"ab"`. This is useful for expressing long string literals that
 need to be written on several lines.
 
 [*Note, if the contents of a file is read into a Modelica string, it is
@@ -256,23 +243,19 @@ non-printable “newline” character when browsing or editing a string
 literal. For example, the following statement defines one string that
 contains (non-printable) newline characters:*
 
-**assert**\ (**noEvent**\ (length > s\_small), "
+.. code-block :: modelica
 
-The distance between the origin of frame\_a and the origin of frame\_b
-
-of a LineForceWithMass component became smaller as parameter s\_small
-
-(= a small number, defined in the \\"Advanced\\" menu). The distance is
-
-set to s\_small, although it is smaller, to avoid a division by zero
-
-| when computing the direction of the line force.",
-| level = AssertionLevel.warning);
+  assert(noEvent(length > s_small), "
+      The distance between the origin of frame_a and the origin of frame_b of a LineForceWithMass component became smaller as parameter s_small
+      (= a small number, defined in the \"Advanced\" menu). The distance is
+      set to s_small, although it is smaller, to avoid a division by zero
+      when computing the direction of the line force.",
+    level = AssertionLevel.warning);
 
 ]
 
 Operator Symbols
 ----------------
 
-The predefined operator symbols are formally defined on page 255 and
-summarized in the table of operators in Section 3.2.
+The predefined operator symbols are formally defined on :ref:`todo: page 255` and
+summarized in the table of operators in :numref:`table-operators`.
