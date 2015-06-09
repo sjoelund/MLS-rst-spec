@@ -6,7 +6,7 @@ Operators and Expressions
 
 The lexical units are combined to form even larger building blocks such
 as expressions according to the rules given by the expression part of
-the Modelica grammar in Appendix B.
+the Modelica grammar in :ref:`TODO: Appendix B`.
 
 This chapter describes the evaluation rules for expressions, the concept
 of expression variability, built-in mathematical operators and
@@ -36,7 +36,7 @@ It is also possible to define functions and call them in a normal
 fashion. The function call syntax for both positional and named
 arguments is described in :ref:`TODO: Section 12.4.1` and for vectorized calls in
 :ref:`TODO: Section 12.4.4`. The built-in array functions are given in :ref:`TODO: Section 10.1.1`
-and other built-in operators in :ref:`TODO: Section 3.7`.
+and other built-in operators in Section :ref:`builtin-with-function-syntax`.
 
 Operator Precedence and Associativity
 -------------------------------------
@@ -49,8 +49,8 @@ The following table presents all the expression operators in order of
 precedence from highest to lowest, as derived from the Modelica grammar
 in :ref:`TODO: Appendix B`. All operators are binary except the postfix operators and
 those shown as unary together with *expr*, the conditional operator, the
-array construction operator {} and concatenation operator [ ], and the
-array range constructor which is either binary or ternary. Operators
+array construction operator ``{}`` and concatenation operator ``[]``, and the
+array range constructor ``:`` which is either binary or ternary. Operators
 with the same precedence occur at the same line of the table:
 
 .. table :: Operators.
@@ -100,11 +100,11 @@ expression operators are left associative, except exponentiation which
 is non-associative. The array range operator is non-associative.
 
 [*The unary minus and plus in Modelica is slightly different than in
-Mathematica and in MATLAB*\  [2]_\ *, since the following expressions
-are illegal (whereas in Mathematica*\  [3]_ *and in MATLAB these are
+Mathematica and in MATLAB*\  [#matlab-mathematica]_\ *, since the following expressions
+are illegal (whereas in Mathematica and in MATLAB these are
 valid expressions):*
 
-``2\*-2 // = -4`` in Mathematica/MATLAB; is illegal in Modelica
+``2*-2 // = -4`` in Mathematica/MATLAB; is illegal in Modelica
 
 ``--2 // = 2`` in Mathematica/MATLAB; is illegal in Modelica
 
@@ -202,6 +202,8 @@ Modelica grammar:
 
   factor =
     primary [ "^" primary ] ;
+
+.. _eq-relational-logic-operators :
 
 Equality, Relational, and Logical Operators
 -------------------------------------------
@@ -379,6 +381,8 @@ which the simulation is started.
 
 ]
 
+.. _builtin-with-function-syntax :
+
 Built-in Intrinsic Operators with Function Syntax
 -------------------------------------------------
 
@@ -516,6 +520,29 @@ integer(x)
 ``integer(x)`` returns the largest integer not greater than x. The argument shall have type Real. The result has type Integer.
 [*Note, outside of a when-clause state events are triggered when the return value changes discontinuously.*\ ].
 
+.. todo ::
+
+  This is using an alternative to using a table: definition lists.
+
+``div(x,y)``
+  returns the algebraic quotient x/y with any fractional part discarded (also known as truncation toward zero). [*Note: this is defined for / in C99; in C89 the result for negative numbers is implementation-defined, so the standard function div() must be used.*\ ]. Result and arguments shall have type Real or Integer. If either of the arguments is Real the result is Real otherwise Integer.
+
+``mod(x,y)``
+  returns the integer modulus of x/y, i.e. mod(x,y)=x-floor(x/y)\*y. Result and arguments shall have type Real or Integer. If either of the arguments is Real the result is Real otherwise Integer. [*Note, outside of a when-clause state events are triggered when the return value changes discontinuously. Examples* mod(3,1.4)=0.2\ *,* mod(-3,1.4)=1.2\ *,* mod(3,-1.4)=-1.2].
+
+``rem(x,y)``
+  returns the integer remainder of x/y, such that div(x,y)\*y + rem(x, y) = x. Result and arguments shall have type Real or Integer. If either of the arguments is Real the result is Real otherwise Integer. [*Note, outside of a when-clause state events are triggered when the return value changes discontinuously. Examples* rem(3,1.4)=0.2\ *,* rem(-3,1.4)=-0.2].
+
+``ceil(x)``
+  returns the smallest integer not less than x. Result and argument shall have type Real. [*Note, outside of a when-clause state events are triggered when the return value changes discontinuously.*\ ].
+
+``floor(x)``
+  returns the largest integer not greater than x. Result and argument shall have type Real. [*Note, outside of a when-clause state events are triggered when the return value changes discontinuously.*\ ].
+
+``integer(x)``
+  returns the largest integer not greater than x. The argument shall have type Real. The result has type Integer.
+  [*Note, outside of a when-clause state events are triggered when the return value changes discontinuously.*\ ].
+
 Built-in Mathematical Functions and External Built-in Functions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -570,7 +597,6 @@ function syntax are predefined:
 .. _operator-der :
 
 ``der(expr)``
-
   The time derivative of expr. If the expression expr is a scalar it
   needs to be a subtype of Real. The expression and all its subexpressions
   must be differentiable. If expr is an array, the operator is applied
@@ -1130,26 +1156,60 @@ The following event-related operators with function syntax are
 supported. The operators noEvent, pre, edge, and change, are
 vectorizable according to Section 12.4.6
 
-+--------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| initial()                | Returns true during the initialization phase and false otherwise [*thereby triggering a time event at the beginning of a simulation*\ ].                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-+--------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| terminal()               | Returns true at the end of a successful analysis [*thereby ensuring an event at the end of successful simulation*\ ].                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-+--------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| noEvent(expr)            | Real elementary relations within expr are taken literally, i.e., no state or time event is triggered. See also Section 3.7.3.2 and Section 8.5.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-+--------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| smooth(p, expr)          | If p>=0 smooth(p,expr) returns expr and states that expr is p times continuously differentiable, i.e.: expr is continuous in all real variables appearing in the expression and all partial derivatives with respect to all appearing real variables exist and are continuous up to order p.                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-|                          | The argument p should be a scalar integer parameter expression. The only allowed types for expr in smooth are: real expressions, arrays of allowed expressions, and records containing only components of allowed expressions. See also Section 3.7.3.2.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-+--------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| sample(start,interval)   | Returns true and triggers time events at time instants start + i\*interval (i=0,1,...). During continuous integration the operator returns always false. The starting time start and the sample interval interval need to be parameter expressions and need to be a subtype of Real or Integer.                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-+--------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| pre(y)                   | Returns the “left limit” y(t\ :sup:`pre`) of variable y(t) at a time instant t. At an event instant, y(t\ :sup:`pre`) is the value of y after the last event iteration at time instant t (see comment below). The pre() operator can be applied if the following three conditions are fulfilled simultaneously: (a) variable y is either a subtype of a simple type or is a record component, (b) y is a discrete-time expression (c) the operator is *not* applied in a function class. [*Note: This can be applied to continuous-time variables in when-clauses, see Section* 3.8.3 *for the definition of discrete-time expression.*] The first value of pre(y) is determined in the initialization phase. See also Section 3.7.3.1.   |
-+--------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| edge(b)                  | Is expanded into “(b and not pre(b))” for Boolean variable b. The same restrictions as for the pre() operator apply (e.g. not to be used in function classes).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-+--------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| change(v)                | Is expanded into “(v<>pre(v))”. The same restrictions as for the pre() operator apply.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-+--------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| reinit(x, expr)          | In the body of a when clause, reinitializes x with expr at an event instant. x is a Real variable (or an array of Real variables) that is implicitly defined to have StateSelect.always [*so* *must be selected as a state, and it is an error, if this is not possible*]. expr needs to be type-compatible with x. The reinit operator can only be applied once for the same variable - either as an individual variable or as part of an array of variables. It can only be applied in the body of a when clause in an equation section. See also Section 8.3.6 .                                                                                                                                                                       |
-+--------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+``initial()``
+  Returns true during the initialization phase and false otherwise [*thereby triggering a time event at the beginning of a simulation*].
+``terminal()``
+  Returns true at the end of a successful analysis [*thereby ensuring an event at the end of successful simulation*].
+``noEvent(expr)``
+  Real elementary relations within expr are taken literally, i.e., no state or time event is triggered. See also Section :ref:`noevent-smooth` and Section 8.5.
+``smooth(p, expr)``
+  If p>=0 smooth(p,expr) returns expr and states that expr is p times
+  continuously differentiable, i.e.: expr is continuous in all real
+  variables appearing in the expression and all partial derivatives with
+  respect to all appearing real variables exist and are continuous up to
+  order p.
+  The argument p should be a scalar integer parameter expression.
+  The only allowed types for expr in smooth are: real expressions, arrays
+  of allowed expressions, and records containing only components of
+  allowed expressions. See also Section :ref:`noevent-smooth`.
+``sample(start,interval)``
+  Returns true and triggers time events at time instants
+  ``start + i*interval(i=0,1, ...)``.
+  During continuous integration the operator returns always false.
+  The starting time start and the sample interval interval need to be
+  parameter expressions and need to be a subtype of Real or Integer.                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+``pre(y)``
+  Returns the "left limit" y(t\ :sup:`pre`) of variable y(t) at a time
+  instant t. At an event instant, y(t\ :sup:`pre`) is the value of y
+  after the last event iteration at time instant t (see comment below).
+  The pre() operator can be applied if the following three conditions
+  are fulfilled simultaneously:
+
+  #. variable y is either a subtype of a simple type or is a record component
+  #. y is a discrete-time expression
+  #. the operator is *not* applied in a function class.
+
+  [*Note: This can be applied to continuous-time variables in when-clauses,
+  see Section :ref:`discrete-time-expressions` for the definition of discrete-time expression.*]
+  The first value of pre(y) is determined in the initialization phase. See also Section :ref:`operator-pre`.
+
+``edge(b)``
+  Is expanded into ``(b and not pre(b))`` for Boolean variable ``b``.
+  The same restrictions as for the ``pre()`` operator apply (e.g. not to be used in function classes).
+
+``change(v)``
+  Is expanded into ``(v<>pre(v))``.
+  The same restrictions as for the ``pre()`` operator apply.
+
+``reinit(x, expr)``
+  In the body of a when clause, reinitializes ``x`` with ``expr`` at an event instant.
+  ``x`` is a Real variable (or an array of Real variables) that is
+  implicitly defined to have ``StateSelect.always`` [*so must be selected as a state, and it is an error, if this is not possible*].
+  expr needs to be type-compatible with x.
+  The ``reinit`` operator can only be applied once for the same variable
+  - either as an individual variable or as part of an array of variables.
+  It can only be applied in the body of a when clause in an equation section.
+  See also Section :ref:`TODO: 8.3.6`.
 
 A few of these operators are described in more detail in the following.
 
@@ -1162,11 +1222,11 @@ this case the model is at once reevaluated. This evaluation sequence is
 called “\ *event iteration*\ ”. The integration is restarted, if for all
 v used in pre-operators the following condition holds: “pre(v) == v”.
 
-[*If* v *and* pre(v) *are only used in when-clauses, the translator
+[*If* ``v`` *and* ``pre(v)`` *are only used in when-clauses, the translator
 might mask event iteration for variable v since v cannot change during
 event iteration. It is a “quality of implementation” to find the minimal
 loops for event iteration, i.e., not all parts of the model need to be
-reevaluated. *
+reevaluated.*
 
 *The language allows mixed algebraic systems of equations where the
 unknown variables are of type Real, Integer, Boolean, or an enumeration.
@@ -1177,12 +1237,14 @@ a quality of implementation to solve these systems more efficiently,
 e.g., by applying the fix point iteration scheme to a subset of the
 model equations.*]
 
+.. _noevent-smooth :
+
 noEvent and smooth
 ^^^^^^^^^^^^^^^^^^
 
 The noEvent operator implies that real elementary expressions are taken
-literally instead of generating crossing functions, Section 8.5. The
-smooth operator should be used instead of noEvent, in order to avoid
+literally instead of generating crossing functions, Section :ref:`TODO: 8.5`.
+The smooth operator should be used instead of noEvent, in order to avoid
 events for efficiency reasons. A tool is free to not generate events for
 expressions inside smooth. However, smooth does not guarantee that no
 events will be generated, and thus it can be necessary to use noEvent
@@ -1207,9 +1269,10 @@ Variability of Expressions
 --------------------------
 
 The concept of variability of an expression indicates to what extent the
-expression can vary over time. See also Section 4.4.4 regarding the
-concept of variability. There are four levels of variability of
-expressions, starting from the least variable:
+expression can vary over time. See also Section :ref:`TODO: 4.4.4`
+regarding the concept of variability.
+There are four levels of variability of expressions, starting from the
+least variable:
 
 -  constant variability
 
@@ -1219,14 +1282,14 @@ expressions, starting from the least variable:
 
 -  continuous-time variability
 
-For an assignment v:=expr or binding equation v=expr, v must be declared
-to be at least as variable as expr.
+For an assignment ``v:=expr`` or binding equation ``v=expr``, ``v`` must be declared
+to be at least as variable as ``expr``.
 
--  The right-hand side expression in a binding equation [*that is,
-   expr*\ ] of a parameter component and of the base type attributes
-   [*such as* start] needs to be a parameter or constant expression.
+-  The right-hand side expression in a binding equation [*that is*,
+   ``expr`` ] of a parameter component and of the base type attributes
+   [*such as* ``start``] needs to be a parameter or constant expression.
 
--  If v is a discrete-time component then expr needs to be a
+-  If ``v`` is a discrete-time component then ``expr`` needs to be a
    discrete-time expression.
 
 Constant Expressions
@@ -1264,6 +1327,8 @@ Parameter expressions are:
    edge, change, sample, and pre, a function or operator with parameter
    subexpressions is a parameter expression.
 
+.. _discrete-time-expressions :
+
 Discrete-Time Expressions
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1284,24 +1349,25 @@ Discrete-time expressions are:
 -  Expressions in the body of a when-clause, initial equation, or
    initial algorithm.
 
--  Unless inside noEvent: Ordered relations (>,<,>=,<=) if at least one
+-  Unless inside noEvent: Ordered relations (``>``, ``<``, ``>=``, ``<=``) if at least one
    operand is a subtype of Real (i.e. Real elementary relations, see
-   Section 3.5) and the functions ceil, floor, div, mod, rem. These will
-   generate events if at least one subexpression is not a discrete-time
-   expression. [*In other words, relations inside* noEvent()\ *, such
-   as* noEvent(x>1)\ *, are not discrete-time expressions*].
+   Section :ref:`eq-relational-logic-operators`) and the functions ``ceil``,
+   ``floor``, ``div``, ``mod``, ``rem``.
+   These will generate events if at least one subexpression is not a
+   discrete-time expression. [*In other words, relations inside* ``noEvent()`` \ *,
+   such as* ``noEvent(x>1)``\ *, are not discrete-time expressions*].
 
--  The functions pre, edge, and change result in discrete-time
+-  The functions ``pre``, ``edge``, and ``change`` result in discrete-time
    expressions.
 
 -  Expressions in functions behave as though they were discrete-time
    expressions.
 
-For an equation expr1 = expr2 where neither expression is of base type
+For an equation ``expr1 = expr2`` where neither expression is of base type
 Real, both expressions must be discrete-time expressions. For record
 equations the equation is split into basic types before applying this
-test. [*This restriction guarantees that the* noEvent() *operator cannot
-be applied to* Boolean\ *,* Integer\ *,* String\ *, or enumeration
+test. [*This restriction guarantees that the* ``noEvent()`` *operator cannot
+be applied to* ``Boolean``\ *,* ``Integer``\ *,* ``String``\ *, or enumeration
 equations outside of a when-clause, because then one of the two
 expressions is not discrete-time*]
 
@@ -1345,8 +1411,7 @@ parameter and discrete expressions. The term “non-discrete-time
 expression” refers to expressions that are not constant, parameter or
 discrete expressions.
 
-.. [2]
+.. [#matlab-mathematica]
    MATLAB is a registered trademark of MathWorks Inc.
 
-.. [3]
    Mathematica is a registered trademark of Wolfram Research Inc.
