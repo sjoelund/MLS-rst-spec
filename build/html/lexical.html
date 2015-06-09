@@ -1,0 +1,389 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Lexical Structure &mdash; Modelica Language Specification 3.3 Revision 1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.3 Revision 1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Modelica Language Specification 3.3 Revision 1 documentation" href="index.html" />
+    <link rel="next" title="Operators and Expressions" href="operators.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="operators.html" title="Operators and Expressions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Modelica Language Specification 3.3 Revision 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="lexical-structure">
+<h1>Lexical Structure<a class="headerlink" href="#lexical-structure" title="Permalink to this headline">¶</a></h1>
+<p>This chapter describes several of the basic building blocks of Modelica
+such as characters and lexical units including identifiers and literals.
+Without question, the smallest building blocks in Modelica are single
+characters belonging to a character set. Characters are combined to form
+lexical units, also called tokens. These tokens are detected by the
+lexical analysis part of the Modelica translator. Examples of tokens are
+literal constants, identifiers, and operators. Comments are not really
+lexical units since they are eventually discarded. On the other hand,
+comments are detected by the lexical analyzer before being thrown away.</p>
+<p>The information presented here is derived from the more formal
+specification in Appendix B.</p>
+<div class="section" id="character-set">
+<h2>Character Set<a class="headerlink" href="#character-set" title="Permalink to this headline">¶</a></h2>
+<p>The character set of the Modelica language is Unicode, but restricted to
+the Unicode characters corresponding to 7-bit ASCII characters in
+several places; for details see Appendix B.1.</p>
+</div>
+<div class="section" id="comments">
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h2>
+<p>There are two kinds of comments in Modelica which are not lexical units
+in the language and therefore are treated as whitespace by a Modelica
+translator. The whitespace characters are space, tabulator, and line
+separators (carriage return and line feed); and whitespace cannot occur
+inside tokens, e.g., &lt;= must be written as two characters without space
+or comments between them. [<em>The comment syntax is identical to that of
+C++</em>]. The following comment variants are available:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal highlight highlight-modelica"><span class="c1">// comment</span></code></td>
+<td>Characters from // to the end of the line are ignored.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal highlight highlight-modelica"><span class="cm">/* comment */</span></code></td>
+<td>Characters between /* and */ are ignored, including line terminators.</td>
+</tr>
+</tbody>
+</table>
+<p>Modelica comments do not nest, i.e., <code class="docutils literal highlight highlight-modelica"><span class="cm">/* */</span></code> cannot be embedded within
+<code class="docutils literal highlight highlight-modelica"><span class="cm">/* */</span></code>. The following is <em>invalid</em>:</p>
+<div class="highlight-modelica"><div class="highlight"><pre><span class="cm">/* Commented out - erroneous comment, invalid nesting of comments!</span>
+<span class="cm">/* This is an interesting model */</span>
+
+<span class="kr">model</span> <span class="nc">interesting</span>
+ <span class="c1">// ...</span>
+<span class="kr">end</span> <span class="nc">interesting</span><span class="p">;</span>
+<span class="o">*/</span>
+</pre></div>
+</div>
+<p>There is also a kind of &#8220;documentation comment,&#8221; really a <em>documentation
+string</em> that is part of the Modelica language and therefore not ignored
+by the Modelica translator. Such &#8220;comments&#8221; may occur at the ends of
+declarations, equations, or statements or at the beginning of class
+definitions. For example:</p>
+<div class="highlight-modelica"><div class="highlight"><pre><span class="kr">model</span> <span class="nc">TempResistor</span> <span class="s2">&quot;Temperature dependent resistor&quot;</span>
+  <span class="c1">// ...</span>
+  <span class="kr">parameter</span> <span class="nb">Real</span> <span class="n">R</span> <span class="s2">&quot;Resistance for reference temp.&quot;</span><span class="p">;</span>
+  <span class="c1">// ...</span>
+<span class="kr">end</span> <span class="nc">TempResistor</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="identifiers-names-and-keywords">
+<h2>Identifiers, Names, and Keywords<a class="headerlink" href="#identifiers-names-and-keywords" title="Permalink to this headline">¶</a></h2>
+<p><em>Identifiers</em> are sequences of letters, digits, and other characters
+such as underscore, which are used for <em>naming</em> various items in the
+language. Certain combinations of letters are <em>keywords</em> represented as
+<em>reserved</em> words in the Modelica grammar and are therefore not available
+as identifiers.</p>
+<div class="section" id="identifiers">
+<h3>Identifiers<a class="headerlink" href="#identifiers" title="Permalink to this headline">¶</a></h3>
+<p>Modelica <em>identifiers</em>, used for naming classes, variables, constants,
+and other items, are of two forms. The first form always start with a
+letter or underscore (_), followed by any number of letters, digits, or
+underscores. Case is significant, i.e., the names Inductor and inductor
+are different. The second form (Q-IDENT) starts with a single quote,
+followed by a sequence of any printable ASCII character, where
+single-quote must be preceded by backslash, and terminated by a single
+quote, e.g. &#8216;12H&#8217;, &#8216;13\&#8217;H&#8217;, &#8216;+foo&#8217;. Control characters in quoted
+identifiers have to use string escapes. The single quotes are part of
+the identifier, i.e., &#8216;x&#8217; and x are distinct identifiers. The following
+BNF-like rules define Modelica identifiers, where curly brackets {}
+indicate repetition zero or more times, and vertical bar | indicates
+alternatives. A full BNF definition of the Modelica syntax and lexical
+units is available in <span class="xref std std-ref">old Appendix B</span>.</p>
+<div class="highlight-ebnf"><div class="highlight"><pre><span class="k">IDENT </span><span class="o">=</span> <span class="k">NONDIGIT </span><span class="p">{</span> <span class="k">DIGIT </span><span class="p">|</span> <span class="k">NONDIGIT </span><span class="p">}</span> <span class="p">|</span> <span class="k">Q-IDENT </span><span class="p">;</span>
+<span class="k">Q-IDENT </span><span class="o">=</span> <span class="s2">&quot;&#39;&quot;</span> <span class="p">{</span> <span class="k">Q-CHAR </span><span class="p">|</span> <span class="k">S-ESCAPE </span><span class="p">}</span> <span class="s2">&quot;&#39;&quot;</span> <span class="p">;</span>
+<span class="k">NONDIGIT </span><span class="o">=</span> <span class="s2">&quot;_&quot;</span> <span class="p">|</span> <span class="k">letters </span><span class="s2">&quot;a&quot;</span> <span class="k">to </span><span class="s2">&quot;z&quot;</span> <span class="p">|</span> <span class="k">letters </span><span class="s2">&quot;A&quot;</span> <span class="k">to </span><span class="s2">&quot;Z&quot;</span> <span class="p">;</span>
+<span class="k">DIGIT </span><span class="o">=</span> <span class="s2">&quot;0&quot;</span> <span class="p">|</span> <span class="s2">&quot;1&quot;</span> <span class="p">|</span> <span class="s2">&quot;2&quot;</span> <span class="p">|</span> <span class="s2">&quot;3&quot;</span> <span class="p">|</span> <span class="s2">&quot;4&quot;</span> <span class="p">|</span> <span class="s2">&quot;5&quot;</span> <span class="p">|</span> <span class="s2">&quot;6&quot;</span> <span class="p">|</span> <span class="s2">&quot;7&quot;</span> <span class="p">|</span> <span class="s2">&quot;8&quot;</span> <span class="p">|</span> <span class="s2">&quot;9&quot;</span> <span class="p">;</span>
+<span class="k">Q-CHAR </span><span class="o">=</span> <span class="k">NONDIGIT </span><span class="p">|</span> <span class="k">DIGIT </span><span class="p">|</span> <span class="s2">&quot;!&quot;</span> <span class="p">|</span> <span class="s2">&quot;#&quot;</span> <span class="p">|</span> <span class="s2">&quot;$&quot;</span> <span class="p">|</span> <span class="s2">&quot;%&quot;</span> <span class="p">|</span> <span class="s2">&quot;&amp;&quot;</span> <span class="p">|</span> <span class="s2">&quot;(&quot;</span> <span class="p">|</span> <span class="s2">&quot;)&quot;</span> <span class="p">|</span> <span class="s2">&quot;\*&quot;</span> <span class="p">|</span> <span class="s2">&quot;+&quot;</span> <span class="p">|</span>
+  <span class="s2">&quot;,&quot;</span> <span class="p">|</span> <span class="s2">&quot;-&quot;</span> <span class="p">|</span> <span class="s2">&quot;.&quot;</span> <span class="p">|</span> <span class="s2">&quot;/&quot;</span> <span class="p">|</span> <span class="s2">&quot;:&quot;</span> <span class="p">|</span> <span class="s2">&quot;;&quot;</span> <span class="p">|</span> <span class="s2">&quot;&lt;&quot;</span> <span class="p">|</span> <span class="s2">&quot;&gt;&quot;</span> <span class="p">|</span> <span class="s2">&quot;=&quot;</span> <span class="p">|</span> <span class="s2">&quot;?&quot;</span> <span class="p">|</span> <span class="s2">&quot;@&quot;</span> <span class="p">|</span> <span class="s2">&quot;[&quot;</span> <span class="p">|</span> <span class="s2">&quot;]&quot;</span> <span class="p">|</span>
+  <span class="s2">&quot;^&quot;</span> <span class="p">|</span> <span class="s2">&quot;{&quot;</span> <span class="p">|</span> <span class="s2">&quot;}&quot;</span> <span class="p">|</span> <span class="s2">&quot;|&quot;</span> <span class="p">|</span> <span class="s2">&quot;~&quot;</span> <span class="p">|</span> <span class="s2">&quot; &quot;</span> <span class="p">|</span> <span class="s2">&quot;_&quot;</span> <span class="p">;</span>
+<span class="k">S-ESCAPE </span><span class="o">=</span> <span class="s2">&quot;\&quot;</span> <span class="p">(</span> <span class="s2">&quot;&#39;&quot;</span> <span class="s2">&quot;&quot;&quot;&quot;</span> <span class="s2">&quot;?&quot;</span> <span class="s2">&quot;\&quot;</span> <span class="s2">&quot;a&quot;</span> <span class="s2">&quot;b&quot;</span> <span class="s2">&quot;f&quot;</span> <span class="s2">&quot;n&quot;</span> <span class="s2">&quot;r&quot;</span> <span class="s2">&quot;t&quot;</span> <span class="s2">&quot;v&quot;</span> <span class="p">)</span> <span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="names">
+<h3>Names<a class="headerlink" href="#names" title="Permalink to this headline">¶</a></h3>
+<p>A <em>name</em> is an identifier with a certain interpretation or meaning. For
+example, a name may denote an Integer variable, a Real variable, a
+function, a type, etc. A name may have different meanings in different
+parts of the code, i.e., different scopes. The interpretation of
+identifiers as names is described in more detail in <span class="xref std std-ref">todo: Chapter 5</span>. The
+meaning of package names is described in more detail in <span class="xref std std-ref">todo: Chapter 13</span>.</p>
+</div>
+<div class="section" id="modelica-keywords">
+<h3>Modelica Keywords<a class="headerlink" href="#modelica-keywords" title="Permalink to this headline">¶</a></h3>
+<p>The following Modelica <em>keywords</em> are reserved words and may not be used
+as identifiers, except as listed in <span class="xref std std-ref">TODO: Appendix B.1</span>:</p>
+<p><code class="docutils literal highlight highlight-modelica"><span class="kr">algorithm</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="ow">and</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">annotation</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">block</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">break</span></code>,
+<code class="docutils literal highlight highlight-modelica"><span class="kr">class</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">connect</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">connector</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">constant</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">constrainedby</span></code>,
+<code class="docutils literal highlight highlight-modelica"><span class="kr">der</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">discrete</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">each</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">else</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">elseif</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">elsewhen</span></code>,
+<code class="docutils literal highlight highlight-modelica"><span class="kr">encapsulated</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">end</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">enumeration</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">equation</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">expandable</span></code>,
+<code class="docutils literal highlight highlight-modelica"><span class="kr">extends</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">external</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kc">false</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">final</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">flow</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">for</span></code>,
+<code class="docutils literal highlight highlight-modelica"><span class="kr">function</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">if</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">import</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">impure</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">in</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">initial</span></code>,
+<code class="docutils literal highlight highlight-modelica"><span class="kr">inner</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">input</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">loop</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">model</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="ow">not</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">operator</span></code>,
+<code class="docutils literal highlight highlight-modelica"><span class="ow">or</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">outer</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">output</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">package</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">parameter</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">partial</span></code>,
+<code class="docutils literal highlight highlight-modelica"><span class="kr">protected</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">public</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">pure</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">record</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">redeclare</span></code>,
+<code class="docutils literal highlight highlight-modelica"><span class="kr">replaceable</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">return</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">stream</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">then</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kc">true</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">type</span></code>,
+<code class="docutils literal highlight highlight-modelica"><span class="kr">when</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">while</span></code>, <code class="docutils literal highlight highlight-modelica"><span class="kr">within</span></code></p>
+</div>
+</div>
+<div class="section" id="literal-constants">
+<h2>Literal Constants<a class="headerlink" href="#literal-constants" title="Permalink to this headline">¶</a></h2>
+<p>Literal constants are unnamed constants that have different forms
+depending on their type. Each of the predefined types in Modelica has a
+way of expressing unnamed constants of the corresponding type, which is
+presented in the ensuing subsections. Additionally, array literals and
+record literals can be expressed.</p>
+<div class="section" id="floating-point-numbers">
+<h3>Floating Point Numbers<a class="headerlink" href="#floating-point-numbers" title="Permalink to this headline">¶</a></h3>
+<p>A floating point number is expressed as a decimal number in the form of
+a sequence of decimal digits optionally followed by a decimal point,
+optionally followed by an exponent. At least one digit must be present.
+The exponent is indicated by an E or e, followed by an optional sign (+
+or -) and one or more decimal digits. The minimal recommended range is
+that of IEEE double precision floating point numbers, for which the
+largest representable positive number is <code class="docutils literal highlight highlight-modelica"><span class="mf">1.7976931348623157E+308</span></code> and the
+smallest positive number is <code class="docutils literal highlight highlight-modelica"><span class="mf">2.2250738585072014E-308</span></code>. For example, the
+following are floating point number literal constants:</p>
+<div class="highlight-modelica"><div class="highlight"><pre><span class="mf">22.5</span><span class="p">,</span> <span class="mf">3.141592653589793</span><span class="p">,</span> <span class="mf">1.2E-35</span>
+</pre></div>
+</div>
+<p>The same floating point number can be represented by different literals.
+For example, all of the following literals denote the same number:</p>
+<div class="highlight-modelica"><div class="highlight"><pre><span class="mf">13.</span><span class="p">,</span> <span class="mf">13E0</span><span class="p">,</span> <span class="mf">1.3e1</span><span class="p">,</span> <span class="mf">0.13E2</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="integer-literals">
+<h3>Integer Literals<a class="headerlink" href="#integer-literals" title="Permalink to this headline">¶</a></h3>
+<p>Literals of type Integer are sequences of decimal digits, e.g. as in the
+integer numbers <code class="docutils literal highlight highlight-modelica"><span class="mi">33</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">30030044</span></code>. [<em>Negative numbers are formed by
+unary minus followed by an integer literal</em>]. The minimal recommended
+number range is from <code class="docutils literal highlight highlight-modelica"><span class="o">-</span><span class="mi">2147483648</span></code> to <code class="docutils literal highlight highlight-modelica"><span class="o">+</span><span class="mi">2147483647</span></code> for a two’s-complement
+32-bit integer implementation.</p>
+</div>
+<div class="section" id="boolean-literals">
+<h3>Boolean Literals<a class="headerlink" href="#boolean-literals" title="Permalink to this headline">¶</a></h3>
+<p>The two Boolean literal values are <code class="code modelica docutils literal highlight highlight-modelica"><span class="kc">true</span></code> and <code class="code modelica docutils literal highlight highlight-modelica"><span class="kc">false</span></code>.</p>
+</div>
+<div class="section" id="strings">
+<h3>Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h3>
+<p>String literals appear between double quotes as in &#8220;between&#8221;. Any
+character in the Modelica language character set (see appendix B.1 for
+allowed characters) apart from double quote (&#8221;) and backslash (\),
+including new-line, can be <em>directly</em> included in a string without using
+an escape code. Certain characters in string literals can be represented
+using escape codes, i.e., the character is preceded by a backslash (\)
+within the string. Those characters are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal highlight highlight-modelica"><span class="s2">&quot;</span><span class="se">\&#39;</span><span class="s2">&quot;</span></code></td>
+<td>single quote may also appear without backslash in string constants.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal highlight highlight-modelica"><span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">&quot;</span></code></td>
+<td>double quote</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal highlight highlight-modelica"><span class="s2">&quot;</span><span class="se">\?</span><span class="s2">&quot;</span></code></td>
+<td>question-mark may also appear without backslash in string constants.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal highlight highlight-modelica"><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span></code></td>
+<td>backslash itself</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal highlight highlight-modelica"><span class="s2">&quot;</span><span class="se">\a</span><span class="s2">&quot;</span></code></td>
+<td>alert (bell, code 7, ctrl-G)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal highlight highlight-modelica"><span class="s2">&quot;</span><span class="se">\b</span><span class="s2">&quot;</span></code></td>
+<td>backspace (code 8, ctrl-H)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal highlight highlight-modelica"><span class="s2">&quot;</span><span class="se">\f</span><span class="s2">&quot;</span></code></td>
+<td>form feed (code 12, ctrl-L)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal highlight highlight-modelica"><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span></code></td>
+<td>new-line (code 10, ctrl-J)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal highlight highlight-modelica"><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span></code></td>
+<td>return (code 13, ctrl-M)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal highlight highlight-modelica"><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span></code></td>
+<td>horizontal tab (code 9, ctrl-I)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal highlight highlight-modelica"><span class="s2">&quot;</span><span class="se">\v</span><span class="s2">&quot;</span></code></td>
+<td>vertical tab (code 11, ctrl-K)</td>
+</tr>
+</tbody>
+</table>
+<p>For example, a string literal containing a tab, the words: This is,
+double quote, space, the word: between, double quote, space, the word:
+us, and new-line, would appear as follows:</p>
+<div class="highlight-modelica"><div class="highlight"><pre><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">This is</span><span class="se">\&quot;</span><span class="s2"> between</span><span class="se">\&quot;</span><span class="s2"> us</span><span class="se">\n</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>Concatenation of string literals in certain situations (see the Modelica
+grammar) is denoted by the + operator in Modelica, e.g. <code class="code modelica docutils literal highlight highlight-modelica"><span class="s2">&quot;a&quot;</span> <span class="o">+</span> <span class="s2">&quot;b&quot;</span></code>
+becomes <code class="code modelica docutils literal highlight highlight-modelica"><span class="s2">&quot;ab&quot;</span></code>. This is useful for expressing long string literals that
+need to be written on several lines.</p>
+<p>[<em>Note, if the contents of a file is read into a Modelica string, it is
+assumed that the reading function is responsible to handle the different
+line ending symbols on file (e.g. on Linux systems to have a “newline”
+character at the end of a line and on Windows systems to have a
+“newline” and a “carriage return” character. As usual in programming
+languages, the content of a file in a Modelica string only contains the
+“newline” character.</em></p>
+<p><em>For long string comments, e.g., the “info” annotation to store the
+documentation of a model, it would be very inconvenient, if the string
+concatenation operator would have to be used for every line of
+documentation. It is assumed that a Modelica tool supports the
+non-printable “newline” character when browsing or editing a string
+literal. For example, the following statement defines one string that
+contains (non-printable) newline characters:</em></p>
+<div class="highlight-modelica"><div class="highlight"><pre><span class="nb">assert</span><span class="p">(</span><span class="nb">noEvent</span><span class="p">(</span><span class="n">length</span> <span class="o">&gt;</span> <span class="n">s_small</span><span class="p">),</span> <span class="s2">&quot;</span>
+<span class="s2">    The distance between the origin of frame_a and the origin of frame_b of a</span>
+<span class="s2">    LineForceWithMass component became smaller as parameter s_small</span>
+<span class="s2">    (= a small number, defined in the </span><span class="se">\&quot;</span><span class="s2">Advanced</span><span class="se">\&quot;</span><span class="s2"> menu). The distance is</span>
+<span class="s2">    set to s_small, although it is smaller, to avoid a division by zero</span>
+<span class="s2">    when computing the direction of the line force.&quot;</span><span class="p">,</span>
+  <span class="n">level</span> <span class="o">=</span> <span class="nb">AssertionLevel</span><span class="o">.</span><span class="n">warning</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>]</p>
+</div>
+</div>
+<div class="section" id="operator-symbols">
+<h2>Operator Symbols<a class="headerlink" href="#operator-symbols" title="Permalink to this headline">¶</a></h2>
+<p>The predefined operator symbols are formally defined on <span class="xref std std-ref">todo: page 255</span> and
+summarized in the table of operators in <a class="reference internal" href="operators.html#table-operators"><span>Table 1</span></a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Lexical Structure</a><ul>
+<li><a class="reference internal" href="#character-set">Character Set</a></li>
+<li><a class="reference internal" href="#comments">Comments</a></li>
+<li><a class="reference internal" href="#identifiers-names-and-keywords">Identifiers, Names, and Keywords</a><ul>
+<li><a class="reference internal" href="#identifiers">Identifiers</a></li>
+<li><a class="reference internal" href="#names">Names</a></li>
+<li><a class="reference internal" href="#modelica-keywords">Modelica Keywords</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#literal-constants">Literal Constants</a><ul>
+<li><a class="reference internal" href="#floating-point-numbers">Floating Point Numbers</a></li>
+<li><a class="reference internal" href="#integer-literals">Integer Literals</a></li>
+<li><a class="reference internal" href="#boolean-literals">Boolean Literals</a></li>
+<li><a class="reference internal" href="#strings">Strings</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#operator-symbols">Operator Symbols</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="introduction.html"
+                        title="previous chapter">Introduction</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="operators.html"
+                        title="next chapter">Operators and Expressions</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/lexical.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Modelica Association.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      
+      |
+      <a href="_sources/lexical.txt"
+          rel="nofollow">Page source</a></li>
+    </div>
+
+    
+
+    
+  </body>
+</html>

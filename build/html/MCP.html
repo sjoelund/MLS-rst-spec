@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Modelica Change Proposal: Changing Modelica language specification documentation format &mdash; Modelica Language Specification 3.3 Revision 1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.3 Revision 1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Modelica Language Specification 3.3 Revision 1 documentation" href="index.html" />
+    <link rel="next" title="Introduction" href="introduction.html" />
+    <link rel="prev" title="Welcome to Modelica Language Specification’s documentation!" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="introduction.html" title="Introduction"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Modelica Language Specification’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Modelica Language Specification 3.3 Revision 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="modelica-change-proposal-changing-modelica-language-specification-documentation-format">
+<h1>Modelica Change Proposal: Changing Modelica language specification documentation format<a class="headerlink" href="#modelica-change-proposal-changing-modelica-language-specification-documentation-format" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="revisions">
+<h3>Revisions<a class="headerlink" href="#revisions" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="31%" />
+<col width="47%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Version</th>
+<th class="head">Date</th>
+<th class="head">Comments</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>v1</td>
+<td>2015-06-08</td>
+<td>Initial version</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="copyright-license">
+<h3>Copyright License<a class="headerlink" href="#copyright-license" title="Permalink to this headline">¶</a></h3>
+<p>This document is placed in public domain.</p>
+</div>
+</div>
+<div class="section" id="motivation">
+<h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="benefits-of-using-restructured-text-sphinx">
+<h3>Benefits of using restructured text (Sphinx)<a class="headerlink" href="#benefits-of-using-restructured-text-sphinx" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="it-is-a-text-based-representation">
+<h4>It is a text-based representation<a class="headerlink" href="#it-is-a-text-based-representation" title="Permalink to this headline">¶</a></h4>
+<p>Equations are converted to nice vector graphics:</p>
+<div class="math">
+<p><img src="_images/math/7af328c04fc7aef7f9daacd33fad699769fc002f.svg" alt="{\partial x \over \partial t} = 0.0"/></p>
+</div><p>Easy to get diff&#8217;s for equations as they are also written in textual
+markup (latex).</p>
+<p>Easier to merge changes using a textual format than a binary one.
+This makes collaboration much simpler, in particular when working
+on making sure MCP&#8217;s are up-to-date.</p>
+<p>Easy to track individual changes (each commit is textual and easy to
+see).</p>
+<p>We could work on the specification directly during the design or web
+meetings.</p>
+</div>
+<div class="section" id="restructured-text-specifics">
+<h4>Restructured text specifics<a class="headerlink" href="#restructured-text-specifics" title="Permalink to this headline">¶</a></h4>
+<p>Easier to reference particular subsections or items (a static, named,
+link instead of an ever-changing section number).
+That is, how to reference the specification from for example an e-mail
+or forum discussion.</p>
+<p>Automatic syntax highlighting for Modelica code snippets (no more
+trying to remember which words to boldface):</p>
+<div class="highlight-modelica"><div class="highlight"><pre><span class="kr">model</span> <span class="nc">BouncingBall</span>
+  <span class="kr">parameter</span> <span class="nb">Real</span> <span class="n">e</span><span class="o">=</span><span class="mf">0.7</span> <span class="s2">&quot;coefficient of restitution&quot;</span><span class="p">;</span>
+  <span class="kr">parameter</span> <span class="nb">Real</span> <span class="n">g</span><span class="o">=</span><span class="mf">9.81</span> <span class="s2">&quot;gravity acceleration&quot;</span><span class="p">;</span>
+<span class="hll">  <span class="nb">Real</span> <span class="n">h</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;height of ball&quot;</span><span class="p">;</span>
+</span>  <span class="nb">Real</span> <span class="n">v</span> <span class="s2">&quot;velocity of ball&quot;</span><span class="p">;</span>
+  <span class="nb">Boolean</span> <span class="n">flying</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="kc">true</span><span class="p">)</span> <span class="s2">&quot;true, if ball is flying&quot;</span><span class="p">;</span>
+  <span class="nb">Boolean</span> <span class="n">impact</span><span class="p">;</span>
+  <span class="nb">Real</span> <span class="n">v_new</span><span class="p">;</span>
+  <span class="nb">Integer</span> <span class="n">foo</span><span class="p">;</span>
+<span class="kr">equation</span>
+  <span class="n">impact</span> <span class="o">=</span> <span class="n">h</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">;</span>
+  <span class="n">foo</span> <span class="o">=</span> <span class="kr">if</span> <span class="n">impact</span> <span class="kr">then</span> <span class="mi">1</span> <span class="kr">else</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="kr">der</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">=</span> <span class="kr">if</span> <span class="n">flying</span> <span class="kr">then</span> <span class="o">-</span><span class="n">g</span> <span class="kr">else</span> <span class="mi">0</span><span class="p">;</span>
+<span class="hll">  <span class="kr">der</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span>
+</span>
+  <span class="kr">when</span> <span class="p">{</span><span class="n">h</span> <span class="o">&lt;=</span> <span class="mf">0.0</span> <span class="ow">and</span> <span class="n">v</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">,</span><span class="n">impact</span><span class="p">}</span> <span class="kr">then</span>
+    <span class="n">v_new</span> <span class="o">=</span> <span class="kr">if</span> <span class="nb">edge</span><span class="p">(</span><span class="n">impact</span><span class="p">)</span> <span class="kr">then</span> <span class="o">-</span><span class="n">e</span><span class="o">*</span><span class="nb">pre</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="kr">else</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">flying</span> <span class="o">=</span> <span class="n">v_new</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nb">reinit</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">v_new</span><span class="p">);</span>
+  <span class="kr">end</span> <span class="kr">when</span><span class="p">;</span>
+<span class="kr">end</span> <span class="nc">BouncingBall</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Good search functionality (the JavaScript is able to search the html
+even when the HTML is generated locally - no server required).</p>
+<p>Google indexes the generated HTML easily.</p>
+<p>It is also possible to host different versions of the documentation
+on <a class="reference external" href="https://readthedocs.org">https://readthedocs.org</a>.</p>
+<p><a class="reference external" href="http://sphinx-doc.org/">http://sphinx-doc.org/</a> has good documentation on how to use
+restructured text.</p>
+<p>There are many useful features available:</p>
+<ul class="simple" id="index-0">
+<li>Abbreviations like using :abbr: <abbr title="Modelica Standard Library">MSL</abbr> or as a short-hand name |MLS| <abbr title="Modelica Language Specification">MLS</abbr></li>
+<li>Citations like <a href="#id1"><span class="problematic" id="id2">:cite:`something`</span></a> (working with bibtex) is available as plugins.</li>
+<li>Easy generation of an index, like <span class="target" id="index-1"></span>if and when.</li>
+<li>Easy to theme the generated HTML.</li>
+</ul>
+<p>Generation of the text into multiple formats:</p>
+<ul class="simple">
+<li>HTML (the primary format, web searchable and linkable)</li>
+<li>PDF (via LaTeX)</li>
+<li>epub (e-book readers)</li>
+<li>qthelp (minor benefit; tools can use the built-in help and load the spec in it)</li>
+</ul>
+</div>
+<div class="section" id="benefits-of-using-git">
+<h4>Benefits of using git<a class="headerlink" href="#benefits-of-using-git" title="Permalink to this headline">¶</a></h4>
+<p>Easier to propose changes, for example by writing an MCP in restructured
+text or creating a github pull request for fixing typo&#8217;s.</p>
+<p>Possible to work on the specification during meetings even when the
+Wi-Fi is failing.</p>
+</div>
+</div>
+<div class="section" id="impact">
+<span id="id3"></span><h3>Impact<a class="headerlink" href="#impact" title="Permalink to this headline">¶</a></h3>
+<p>We get a version of the specification that:</p>
+<ul class="simple">
+<li>Can be easily modified.</li>
+<li>Supports collaboration.</li>
+<li>Can be converted to different formats easily.</li>
+</ul>
+</div>
+<div class="section" id="use-cases">
+<h3>Use Cases<a class="headerlink" href="#use-cases" title="Permalink to this headline">¶</a></h3>
+<p>See <a class="reference internal" href="#impact"><span>Impact</span></a>.</p>
+</div>
+</div>
+<div class="section" id="proposed-changes-in-specification">
+<h2>Proposed Changes in Specification<a class="headerlink" href="#proposed-changes-in-specification" title="Permalink to this headline">¶</a></h2>
+<p>The specification will need to be updated. The initial conversion
+can be done by pandoc with manual changes of the specification to
+make sure all formatting has been preserved, indexes updated, source
+code using source code blocks, etc.</p>
+<div class="section" id="required-changes-in-list-of-keywords">
+<h3>Required changes in List of Keywords<a class="headerlink" href="#required-changes-in-list-of-keywords" title="Permalink to this headline">¶</a></h3>
+<p>Conversion to restructured text.</p>
+</div>
+<div class="section" id="required-changes-in-grammar">
+<h3>Required changes in Grammar<a class="headerlink" href="#required-changes-in-grammar" title="Permalink to this headline">¶</a></h3>
+<p>Conversion to restructured text.</p>
+</div>
+<div class="section" id="required-changes-in-specification-text">
+<h3>Required changes in Specification Text<a class="headerlink" href="#required-changes-in-specification-text" title="Permalink to this headline">¶</a></h3>
+<p>Conversion to restructured text.</p>
+</div>
+</div>
+<div class="section" id="backwards-compatibility">
+<h2>Backwards Compatibility<a class="headerlink" href="#backwards-compatibility" title="Permalink to this headline">¶</a></h2>
+<p>No actual changes will be made.</p>
+</div>
+<div class="section" id="implementation-effort">
+<h2>Implementation Effort<a class="headerlink" href="#implementation-effort" title="Permalink to this headline">¶</a></h2>
+<p>No changes will be made that directly affect Modelica tools.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Modelica Change Proposal: Changing Modelica language specification documentation format</a><ul>
+<li><a class="reference internal" href="#summary">Summary</a><ul>
+<li><a class="reference internal" href="#revisions">Revisions</a></li>
+<li><a class="reference internal" href="#copyright-license">Copyright License</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#motivation">Motivation</a><ul>
+<li><a class="reference internal" href="#benefits-of-using-restructured-text-sphinx">Benefits of using restructured text (Sphinx)</a><ul>
+<li><a class="reference internal" href="#it-is-a-text-based-representation">It is a text-based representation</a></li>
+<li><a class="reference internal" href="#restructured-text-specifics">Restructured text specifics</a></li>
+<li><a class="reference internal" href="#benefits-of-using-git">Benefits of using git</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#impact">Impact</a></li>
+<li><a class="reference internal" href="#use-cases">Use Cases</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#proposed-changes-in-specification">Proposed Changes in Specification</a><ul>
+<li><a class="reference internal" href="#required-changes-in-list-of-keywords">Required changes in List of Keywords</a></li>
+<li><a class="reference internal" href="#required-changes-in-grammar">Required changes in Grammar</a></li>
+<li><a class="reference internal" href="#required-changes-in-specification-text">Required changes in Specification Text</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#backwards-compatibility">Backwards Compatibility</a></li>
+<li><a class="reference internal" href="#implementation-effort">Implementation Effort</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to Modelica Language Specification&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="introduction.html"
+                        title="next chapter">Introduction</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/MCP.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Modelica Association.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      
+      |
+      <a href="_sources/MCP.txt"
+          rel="nofollow">Page source</a></li>
+    </div>
+
+    
+
+    
+  </body>
+</html>

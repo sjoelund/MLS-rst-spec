@@ -63,7 +63,8 @@ dirhtml:
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/dirhtml."
 
 singlehtml:
-	$(SPHINXBUILD) -b singlehtml $(ALLSPHINXOPTS) $(BUILDDIR)/singlehtml
+	$(SPHINXBUILD) -D pngmath_dvipng="`pwd`"/dvisvgm.sh  -b singlehtml $(ALLSPHINXOPTS) $(BUILDDIR)/singlehtml
+	sed -i 's,\(_images/math/.*[.]\)png,\1svg,' build/singlehtml/*.html
 	@echo
 	@echo "Build finished. The HTML page is in $(BUILDDIR)/singlehtml."
 

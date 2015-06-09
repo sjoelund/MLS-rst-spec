@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction &mdash; Modelica Language Specification 3.3 Revision 1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.3 Revision 1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Modelica Language Specification 3.3 Revision 1 documentation" href="index.html" />
+    <link rel="next" title="Lexical Structure" href="lexical.html" />
+    <link rel="prev" title="Changing Modelica language specification documentation format" href="MCP.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="lexical.html" title="Lexical Structure"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="MCP.html" title="Changing Modelica language specification documentation format"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Modelica Language Specification 3.3 Revision 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview-of-modelica">
+<h2>Overview of Modelica<a class="headerlink" href="#overview-of-modelica" title="Permalink to this headline">¶</a></h2>
+<p>Modelica is a language for modeling of physical systems, designed to
+support effective library development and model exchange. It is a modern
+language built on acausal modeling with mathematical equations and
+object-oriented constructs to facilitate reuse of modeling knowledge.</p>
+</div>
+<div class="section" id="scope-of-the-specification">
+<h2>Scope of the Specification<a class="headerlink" href="#scope-of-the-specification" title="Permalink to this headline">¶</a></h2>
+<p>The semantics of the Modelica language is specified by means of a set of
+rules for translating any class described in the Modelica language to a
+flat Modelica structure. A class must have additional properties in
+order that its flat Modelica structure can be further transformed into a
+set of differential, algebraic and discrete equations (= flat hybrid
+DAE). Such classes are called simulation models.</p>
+<p>The flat Modelica structure is also defined for other cases than
+simulation models; including functions (can be used to provide
+algorithmic contents), packages (used as a structuring mechanism), and
+partial models (used as base-models). This allows correctness to be
+verified before building the simulation model.</p>
+<p>Modelica was designed to facilitate symbolic transformations of models,
+especially by mapping basically every Modelica language construct to
+continuous or instantaneous equations in the flat Modelica structure.
+Many Modelica models, especially in the associated Modelica Standard
+Library, are higher index systems, and can only be reasonably simulated
+if symbolic index reduction is performed, i.e., equations are
+differentiated and appropriate variables are selected as states, so that
+the resulting system of equations can be transformed to state space form
+(at least locally numerically), i.e., a hybrid DAE of index zero. The
+Modelica specification does not define how to simulate a model. However,
+it defines a set of equations that the simulation result should satisfy
+as well as possible.</p>
+<p>The key issues of the translation (or flattening) are:</p>
+<ul class="simple">
+<li>Expansion of inherited base classes</li>
+<li>Parameterization of base classes, local classes and components</li>
+<li>Generation of connection equations from connect-equations</li>
+</ul>
+<p>The flat hybrid DAE form consists of:</p>
+<ul class="simple">
+<li>Declarations of variables with the appropriate basic types, prefixes
+and attributes, such as <code class="docutils literal highlight highlight-modelica"><span class="kr">parameter</span> <span class="nb">Real</span> <span class="n">v</span><span class="o">=</span><span class="mi">5</span></code>.</li>
+<li>Equations from equation sections.</li>
+<li>Function invocations where an invocation is treated as a set of
+equations which involves all input and all result variables (number
+of equations = number of basic result variables).</li>
+<li>Algorithm sections where every section is treated as a set of
+equations which involves the variables occurring in the algorithm
+section (number of equations = number of different assigned
+variables).</li>
+<li>When-clauses where every when-clause is treated as a set of
+conditionally evaluated equations, also called instantaneous
+equations, which are functions of the variables occurring in the
+clause (number of equations = number of different assigned
+variables).</li>
+</ul>
+<p>Therefore, a flat hybrid DAE is seen as a set of equations where some of
+the equations are only conditionally evaluated (e.g. instantaneous
+equations are only evaluated when the corresponding when-condition
+becomes true). Initial setup of the model is specified using
+start-values and instantaneous equations that hold at the initial time
+only.</p>
+<p>A Modelica class may also contain annotations, i.e. formal comments,
+which specify graphical representations of the class (icon and diagram),
+documentation text for the class, and version information.</p>
+</div>
+<div class="section" id="some-definitions">
+<h2>Some Definitions<a class="headerlink" href="#some-definitions" title="Permalink to this headline">¶</a></h2>
+<p>The semantic specification should be read together with the Modelica
+grammar. Non-normative text, i.e., examples and comments, are enclosed
+in [ ]; comments are set <em>in italics</em>. Additional terms are explained in
+the glossary in <span class="xref std std-ref">TODO: Appendix A</span>. Some important terms are:</p>
+<div class="section" id="component">
+<h3>Component<a class="headerlink" href="#component" title="Permalink to this headline">¶</a></h3>
+<p>An element defined by the production component_clause in the Modelica
+grammar (basically a variable or an instance of a class).</p>
+</div>
+<div class="section" id="element">
+<h3>Element<a class="headerlink" href="#element" title="Permalink to this headline">¶</a></h3>
+<p>Class definitions, extends-clauses and component-clauses declared in a class
+(basically a class reference or a component in a declaration).</p>
+</div>
+<div class="section" id="flattening">
+<h3>Flattening<a class="headerlink" href="#flattening" title="Permalink to this headline">¶</a></h3>
+<p>The translation of a model described in Modelica to the corresponding
+model described as a hybrid DAE, involving expansion of inherited base
+classes, parameterization of base classes, local classes and components,
+and generation of connection equations from connect-equations (basically,
+mapping the hierarchical structure of a model into a set of differential,
+algebraic and discrete equations together with the corresponding variable
+declarations and function definitions from the model).</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Reference the glossary. Create the glossary.</p>
+</div>
+</div>
+</div>
+<div class="section" id="notation-and-grammar">
+<h2>Notation and Grammar<a class="headerlink" href="#notation-and-grammar" title="Permalink to this headline">¶</a></h2>
+<p>The following syntactic meta symbols are used (extended BNF <a class="footnote-reference" href="#ebnf" id="id1">[1]</a>):</p>
+<p><code class="docutils literal highlight highlight-modelica"><span class="p">[</span> <span class="p">]</span></code> optional</p>
+<p><code class="docutils literal highlight highlight-modelica"><span class="p">{</span> <span class="p">}</span></code> repeat zero or more times</p>
+<p>Boldface denotes keywords of the Modelica language. Keywords are
+reserved words and may not be used as identifiers, with the exception of
+initial which is a keyword in section headings, and der which is a
+keyword for declaration functions, but it is also possible to call the
+functions <code class="docutils literal highlight highlight-modelica"><span class="kr">initial</span><span class="p">()</span></code> and <code class="docutils literal highlight highlight-modelica"><span class="kr">der</span><span class="p">(</span><span class="o">...</span><span class="p">)</span></code>.</p>
+<p>See <span class="xref std std-ref">TODO: Appendix B</span> for a full lexical specification and grammar.</p>
+<table class="docutils footnote" frame="void" id="ebnf" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form">ISO/IEC 14977 EBNF grammar</a>.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introduction</a><ul>
+<li><a class="reference internal" href="#overview-of-modelica">Overview of Modelica</a></li>
+<li><a class="reference internal" href="#scope-of-the-specification">Scope of the Specification</a></li>
+<li><a class="reference internal" href="#some-definitions">Some Definitions</a><ul>
+<li><a class="reference internal" href="#component">Component</a></li>
+<li><a class="reference internal" href="#element">Element</a></li>
+<li><a class="reference internal" href="#flattening">Flattening</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#notation-and-grammar">Notation and Grammar</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="MCP.html"
+                        title="previous chapter">Changing Modelica language specification documentation format</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="lexical.html"
+                        title="next chapter">Lexical Structure</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/introduction.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Modelica Association.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      
+      |
+      <a href="_sources/introduction.txt"
+          rel="nofollow">Page source</a></li>
+    </div>
+
+    
+
+    
+  </body>
+</html>
