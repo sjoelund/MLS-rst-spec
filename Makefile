@@ -111,7 +111,7 @@ devhelp:
 	@echo "# devhelp"
 
 epub:
-	$(SPHINXBUILD) -b epub -t epub $(ALLSPHINXOPTS) $(BUILDDIR)/epub
+	$(SPHINXBUILD) -b epub -t nomathjax $(ALLSPHINXOPTS) $(BUILDDIR)/epub
 	@echo
 	@echo "Build finished. The epub file is in $(BUILDDIR)/epub."
 
