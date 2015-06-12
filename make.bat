@@ -1,8 +1,8 @@
 @ECHO OFF
 
 REM Command file for Sphinx documentation
-
-set SPHINXBUILD=%~dp0\python27\Scripts\sphinx-build.exe
+set VERSION=2.7.10
+set SPHINXBUILD=%~dp0\python-%VERSION%\Scripts\sphinx-build.exe
 set BUILDDIR=build
 set ALLSPHINXOPTS=-d %BUILDDIR%/doctrees %SPHINXOPTS% source
 set I18NSPHINXOPTS=%SPHINXOPTS% source
