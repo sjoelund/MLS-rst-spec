@@ -9,7 +9,8 @@ This does not require any adminstrator privileges.
 
 Simply double-click the ``installSphnix.bat`` to install Python
 and Sphinx. Once done double-click on ``make-html.bat`` in order
-to build the HTML version. If you want to build other formats have
-a look at ``make.bat`` and its options.
+to build the HTML version. The resulting HTML is then in
+``build/html/index.html``.
 
-You have built the documentation (with the exception of some LaTeX/math things that can be built by changing the configuration slightly).
+If you want to build other formats have
+a look at ``make.bat`` and its options.
