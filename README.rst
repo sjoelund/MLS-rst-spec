@@ -1,3 +1,8 @@
+Viewing the documentation
+-------------------------
+
+The documentation is hosted at `readthedocs <https://modelica.readthedocs.org>`_
+
 Installation instruction
 ------------------------
 
