@@ -13,7 +13,7 @@ We want a version of the specification that:
 Copyright License
 -----------------
 
-This document is placed in public domain.
+This document (MCP.rst) is placed in public domain.
 
 Revisions
 ---------
