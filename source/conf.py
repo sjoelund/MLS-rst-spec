@@ -39,7 +39,7 @@ extensions = [
 # As long as we are not generating with the epub tag it is save to use MathJax.
 if 'latex' not in tags:
   # extensions.append('sphinx.ext.imgmath' if 'nomathjax' in tags else 'sphinx.ext.mathjax')
-  extensions.append('sphinx.ext.pngmath')
+  extensions.append('sphinx.ext.imgmath')
 imgmath_image_format = 'svg'
 
 # Add any paths that contain templates here, relative to this directory.
