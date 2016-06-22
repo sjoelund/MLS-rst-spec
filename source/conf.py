@@ -32,13 +32,15 @@ sys.path.insert(0, os.path.abspath('extensions'))
 extensions = [
     'numsec',
     'sphinx.ext.todo',
-    'sphinx.ext.pngmath',
     'sphinx.ext.ifconfig',
     'sphinxcontrib.inlinesyntaxhighlight'
 ]
 
 # As long as we are not generating with the epub tag it is save to use MathJax.
-if 'nomathjax' not in tags: extensions.append('sphinx.ext.mathjax')
+if 'latex' not in tags:
+  # extensions.append('sphinx.ext.imgmath' if 'nomathjax' in tags else 'sphinx.ext.mathjax')
+  extensions.append('sphinx.ext.imgmath')
+imgmath_image_format = 'svg'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

@@ -44,8 +44,7 @@ def doctree_resolved(app, doctree, docname):
                 if anchorname is None:
                     continue
                 linktext = '.'.join(map(str, secnum[anchorname]))
-                node.replace(emphnode, nodes.Text(linktext
-                    + ' ' + textnode))
+                node.replace(emphnode, nodes.Text(linktext))
 
 def setup(app):
     app.override_domain(CustomStandardDomain)
