@@ -805,7 +805,7 @@ in the following way:*
 .. code-block :: modelica
 
   der(x) = v;
-  (out0, out1) = **spatialDistribution**\ (in0, in1, x, v>=0, initialPoints, initialValues);
+  (out0, out1) = spatialDistribution(in0, in1, x, v>=0, initialPoints, initialValues);
 
 *Events are generated at the exact instants when the velocity changes
 sign – if this is not needed, noEvent() can be used to suppress
